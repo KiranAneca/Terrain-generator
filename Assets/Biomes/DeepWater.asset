@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422ff6cf7d4354d4bb0e016eabc03f41, type: 3}
   m_Name: DeepWater
   m_EditorClassIdentifier: 
+  _linkBackBiome: {fileID: 0}
+  _transition: 0
+  _floatTransitionCondition: 0
+  _transitionVariable: 0
   _endBiome: 1
-  _transition: {fileID: 0}
   _transitionBiomes: []
-  _biomeMat: {fileID: 2100000, guid: 67caab28357466d45b550bbf516bb990, type: 2}
+  _biomeMat: {fileID: 2100000, guid: ed81f0b75c1fa734abb947e9cddb6713, type: 2}

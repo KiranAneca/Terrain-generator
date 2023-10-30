@@ -9,6 +9,9 @@ public enum TileType
     Water = 1,
 }
 
+[AttributeUsage(AttributeTargets.Field)]
+public class TransitionVar : Attribute { }
+
 public class Tile : MonoBehaviour
 {
     [SerializeField] private Biome _biome;
@@ -17,14 +20,24 @@ public class Tile : MonoBehaviour
 
     [SerializeField] private List<Tile> _neighbours;
 
-    // Parameters
-    [SerializeField] private float _elevation;
-    [SerializeField] private float _temperature;
-    [SerializeField] private float _rain;
+    // Parameters for generation
+    [SerializeField] private bool _isWater;
 
-    public float Elevation { get => _elevation; set => SetElevation(value); }
-    public float Temperature { get => _temperature; set => _temperature = value; }
-    public float Rain { get => _rain; set => _rain = value; }
+    [SerializeField] private float _rawElevation;
+    [SerializeField] private float _rawTemperature;
+    [SerializeField] private float _rawRain;
+    [SerializeField] private float _rawVegetation;
+
+    [SerializeField] private float _rawCoal;
+    [SerializeField] private float _rawIron;
+
+    public float FT_Elevation { get => _rawElevation; set => SetElevation(value); }
+    public float FT_Temperature { get => _rawTemperature; set => _rawTemperature = value; }
+    public float FT_Rain { get => _rawRain; set => _rawRain = value; }
+    public float FT_Vegetation { get => _rawVegetation; set => _rawVegetation = value; }
+    public float FT_Coal { get => _rawCoal; set => _rawCoal = value; }
+    public float FT_Iron { get => _rawIron; set => _rawIron = value; }
+    public bool BT_isWater { get => _isWater; set => _isWater = value; }
 
     // Functions
     public void DetermineBiome()
@@ -38,10 +51,10 @@ public class Tile : MonoBehaviour
 
     public void SetElevation(float value)
     {
-        _elevation = Elevation;
+        _rawElevation = value;
         if (_tileType == TileType.Water)
         { 
-            _elevation = -_elevation;
+           // _rawElevation = -_rawElevation;
         }
     }
 
@@ -62,6 +75,7 @@ public class Tile : MonoBehaviour
     public void SetTileType(TileType tileType)
     {
         _tileType = tileType;
+        _isWater = tileType == TileType.Water;
     }
 
     public Vector3 GetGridPosition()

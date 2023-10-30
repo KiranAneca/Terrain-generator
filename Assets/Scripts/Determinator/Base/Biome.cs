@@ -12,13 +12,21 @@ public struct TransitionBiome
     public float TransitionValue;
 }
 
-
+public enum FloatTransitionCondition
+{
+    None,
+    Closest,
+    Threshold,
+}
 
 [CreateAssetMenu(menuName = "Biome")]
 public class Biome : ScriptableObject
 {
+    [SerializeField] private Biome _linkBackBiome;
+    [SerializeField] private TransitionEnum _transition;
+    [SerializeField] private FloatTransitionCondition _floatTransitionCondition;
+    [SerializeField] private TransitionVariableEnum _transitionVariable;
     [SerializeField] private bool _endBiome = true;
-    [SerializeField] private Transitions _transition;
     [SerializeField] private List<TransitionBiome> _transitionBiomes;
 
     [SerializeField] private Material _biomeMat;
@@ -32,17 +40,50 @@ public class Biome : ScriptableObject
 
         BaseTransition transition = Activator.CreateInstance(type) as BaseTransition;
 
-        float transitionValue = transition.Determine(tile);
-        float closestValue = Mathf.Infinity;
+        float transitionValue = transition.Determine(tile, _transitionVariable.ToString());
+
+        return FloatDeterminator(transitionValue);
+    }
+
+    private Biome FloatDeterminator(float transitionValue)
+    {
         Biome newBiome = _transitionBiomes[0].Biome;
-        for (int i = 0; i < _transitionBiomes.Count; i++)
+        switch (_floatTransitionCondition)
         {
-            float testvalue = Mathf.Abs(_transitionBiomes[i].TransitionValue - transitionValue);
-            if (testvalue <= closestValue)
-            {
-                closestValue = testvalue;
-                newBiome = _transitionBiomes[i].Biome;
-            }
+            case FloatTransitionCondition.None: // In case this isn't a float determination, return the closest, which should be 0 or 1
+                float closestValue = Mathf.Infinity;
+                for (int i = 0; i < _transitionBiomes.Count; i++)
+                {
+                    float testvalue = Mathf.Abs(_transitionBiomes[i].TransitionValue - transitionValue);
+                    if (testvalue <= closestValue)
+                    {
+                        closestValue = testvalue;
+                        newBiome = _transitionBiomes[i].Biome;
+                    }
+                }
+                return newBiome;
+            case FloatTransitionCondition.Closest: // Return the closest result
+                closestValue = Mathf.Infinity;
+                for (int i = 0; i < _transitionBiomes.Count; i++)
+                {
+                    float testvalue = Mathf.Abs(_transitionBiomes[i].TransitionValue - transitionValue);
+                    if (testvalue <= closestValue)
+                    {
+                        closestValue = testvalue;
+                        newBiome = _transitionBiomes[i].Biome;
+                    }
+                }
+                return newBiome;
+            case FloatTransitionCondition.Threshold: // Return the biome with the biggest value that is met
+                for (int i = 0; i < _transitionBiomes.Count; i++)
+                {
+                    float testvalue = transitionValue - _transitionBiomes[i].TransitionValue ;
+                    if (testvalue >= 0)
+                    {
+                        newBiome = _transitionBiomes[i].Biome;
+                    }
+                }
+                return newBiome;
         }
         return newBiome;
     }

@@ -16,26 +16,23 @@ public class MapGen : MonoBehaviour
     [SerializeField][Range(2, 4)] private int _caIterationAmount = 3;
 
     [Header("Parameters")]
-    [SerializeField] private int _MapSizeX = 40;
-    [SerializeField] private int _MapSizeY = 20;
+    [SerializeField] private int _mapSizeX = 40;
+    [SerializeField] private int _mapSizeY = 20;
 
-
-    [SerializeField] [Range(0.0f, 1f)] private float _SeaLevel = 0.5f;
-    [SerializeField] [Range(0.0f, 1f)] private float _BeachLevel = 0.6f;
-    [SerializeField] [Range(0.0f, 1f)] private float _MountainLevel = 0.8f;
-    [SerializeField] [Range(0.01f, 0.25f)] private float _Scatter = 0.34f;
     [Space(20)]
+    [SerializeField] [Range(0.01f, 0.35f)] private float _elevationScatter = 0.34f;
+    [SerializeField] [Range(0.01f, 0.35f)] private float _rainScatter = 0.3f;
+    [SerializeField][Range(0.01f, 0.35f)] private float _temperatureScatter = 0.3f;
+    [SerializeField][Range(0.01f, 0.35f)] private float _vegetationScatter = 0.3f;
 
-    [SerializeField] [Range(0.0f, 1f)] private float _ForestDensity = 0.5f;
-    [SerializeField] [Range(0.01f, 0.25f)] private float _ForestScatter = 0.3f;
-
-    [SerializeField] [Range(0.0f, 0.1f)] private float _RiverDensity = 0.03f;
+    [Header("Resources")]
+    [SerializeField][Range(0.01f, 0.35f)] private float _ironScatter = 0.3f;
+    [SerializeField][Range(0.0f, 1f)] private float _ironSpawnThreshold = 0.5f;
+    [SerializeField][Range(0.01f, 0.35f)] private float _coalScatter = 0.3f;
+    [SerializeField][Range(0.0f, 1f)] private float _coalSpawnThreshold = 0.5f;
 
     [Header("Biomes")]
-    [SerializeField] [Range(0.01f, 1f)] private float _BiomeScatter = 0.34f;
-    [Space(20)]
-
-    [SerializeField] [Range(0.01f, 1f)] private float _SnowDensity = 0.23f;
+    [SerializeField] [Range(0.01f, 1f)] private float _biomeScatter = 0.34f;
 
     private List<Tile> _tileMap;
 
@@ -49,9 +46,6 @@ public class MapGen : MonoBehaviour
     {
         TileManager tilesManager = TileManager.Instance;
 
-        System.Type[] types = System.Reflection.Assembly.GetExecutingAssembly().GetTypes();
-        System.Type[] possible = (from System.Type type in types where type.IsSubclassOf(typeof(BaseTransition)) select type).ToArray();
-
         // Delete the old map
         foreach (Tile tile in _tileMap)
         {
@@ -63,9 +57,9 @@ public class MapGen : MonoBehaviour
         _tileMap.Clear();
 
         // Generate the initial map
-        for (int x = 0; x < _MapSizeX; ++x)
+        for (int x = 0; x < _mapSizeX; ++x)
         {
-            for (int y = 0; y < _MapSizeY; ++y)
+            for (int y = 0; y < _mapSizeY; ++y)
             {
                 // Randomly assign a a tile to be plains or water
                 GameObject obj = Instantiate(_tile, new Vector3(x, 0, y + (x % 2 / 2f)), _tile.transform.rotation);
@@ -112,22 +106,34 @@ public class MapGen : MonoBehaviour
         int mapOffset = Random.Range(1, 1000);
         int temperatureOffset = Random.Range(1, 1000);
         int rainOffset = Random.Range(1, 1000);
+        int vegetationOffset = Random.Range(1, 1000);
+        int coalOffset = Random.Range(1, 1000);
+        int IronOffset = Random.Range(1, 1000);
 
         int idx = -1;
-        for (int x = 0; x < _MapSizeX; ++x)
+        for (int x = 0; x < _mapSizeX; ++x)
         {
-            for (int y = 0; y < _MapSizeY; ++y)
+            for (int y = 0; y < _mapSizeY; ++y)
             {
                 idx++;
 
                 // Generate the value for every tile and set them
-                float elevation = Mathf.PerlinNoise(x * _Scatter + mapOffset, y * _Scatter + mapOffset);
-                float temperatureVal = Mathf.PerlinNoise(x * _BiomeScatter + temperatureOffset, y * _BiomeScatter + temperatureOffset);
-                float rainVal = Mathf.PerlinNoise(x * _BiomeScatter + rainOffset, y * _BiomeScatter + rainOffset);
+                float elevation = Mathf.PerlinNoise(x * _elevationScatter + mapOffset, y * _elevationScatter + mapOffset);
+                float temperatureVal = Mathf.PerlinNoise(x * _temperatureScatter + temperatureOffset, y * _temperatureScatter + temperatureOffset);
+                float rainVal = Mathf.PerlinNoise(x * _rainScatter + rainOffset, y * _rainScatter + rainOffset);
+                float vegetationVal = Mathf.PerlinNoise(x * _vegetationScatter + vegetationOffset, y * _vegetationScatter + vegetationOffset);
 
-                _tileMap[idx].Elevation = elevation;
-                _tileMap[idx].Temperature = temperatureVal;
-                _tileMap[idx].Rain = rainVal;
+                float coalVal = Mathf.PerlinNoise(x * _coalScatter + coalOffset, y * _coalScatter + coalOffset);
+                if(coalVal < _coalSpawnThreshold) { coalVal = 0; }
+                float ironVal = Mathf.PerlinNoise(x * _ironScatter + IronOffset, y * _ironScatter + IronOffset);
+                if (ironVal < _ironSpawnThreshold) { ironVal = 0; }
+
+                _tileMap[idx].FT_Elevation = elevation;
+                _tileMap[idx].FT_Temperature = temperatureVal;
+                _tileMap[idx].FT_Vegetation = vegetationVal;
+                _tileMap[idx].FT_Rain = rainVal;
+                _tileMap[idx].FT_Coal = coalVal;
+                _tileMap[idx].FT_Iron= ironVal;
 
                 _tileMap[idx].DetermineBiome();
             }
@@ -139,12 +145,12 @@ public class MapGen : MonoBehaviour
         for (int i = 0; i < _caIterationAmount; i++)
         {
             // Make a buffer as to not use the changed data in the process of one iteration
-            TileType[,] newTileMap = new TileType[_MapSizeX, _MapSizeY];
+            TileType[,] newTileMap = new TileType[_mapSizeX, _mapSizeY];
 
             int idx = -1;
-            for (int x = 0; x < _MapSizeX; ++x)
+            for (int x = 0; x < _mapSizeX; ++x)
             {
-                for (int y = 0; y < _MapSizeY; ++y)
+                for (int y = 0; y < _mapSizeY; ++y)
                 {
                     idx++;
 
@@ -171,9 +177,9 @@ public class MapGen : MonoBehaviour
 
             idx = -1;
             // Copy over the values from the buffer, to be used
-            for (int x = 0; x < _MapSizeX; ++x)
+            for (int x = 0; x < _mapSizeX; ++x)
             {
-                for (int y = 0; y < _MapSizeY; ++y)
+                for (int y = 0; y < _mapSizeY; ++y)
                 {
                     idx++; 
                     _tileMap[idx].SetTileType(newTileMap[x, y]);

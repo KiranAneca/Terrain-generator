@@ -393,7 +393,6 @@ GameObject:
   - component: {fileID: 1352421713}
   - component: {fileID: 1352421712}
   - component: {fileID: 1352421714}
-  - component: {fileID: 1352421715}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -417,17 +416,17 @@ MonoBehaviour:
   _useCellularAutomata: 1
   _startWaterPercentage: 0.3
   _caIterationAmount: 3
-  _MapSizeX: 40
-  _MapSizeY: 20
-  _SeaLevel: 0.45
-  _BeachLevel: 0.55
-  _MountainLevel: 0.8
-  _Scatter: 0.15
-  _ForestDensity: 0.5
-  _ForestScatter: 0.3
-  _RiverDensity: 0.03
-  _BiomeScatter: 0.34
-  _SnowDensity: 0.23
+  _mapSizeX: 40
+  _mapSizeY: 20
+  _elevationScatter: 0.34
+  _rainScatter: 0.3
+  _temperatureScatter: 0.3
+  _vegetationScatter: 0.3
+  _ironScatter: 0.3
+  _ironSpawnThreshold: 0.5
+  _coalScatter: 0.3
+  _coalSpawnThreshold: 0.5
+  _biomeScatter: 0.34
 --- !u!4 &1352421713
 Transform:
   m_ObjectHideFlags: 0
@@ -457,15 +456,34 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _waterMat: {fileID: 2100000, guid: 67caab28357466d45b550bbf516bb990, type: 2}
   _plainsMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
---- !u!114 &1352421715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
+--- !u!1 &1775713499
+GameObject:
+  m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352421711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d250bb7aa234f7409fcb7253de7622e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1775713501}
+  m_Layer: 0
+  m_Name: UndoProRecords
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1775713501
+Transform:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1775713499}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
