@@ -153,6 +153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SendPointerHoverToParent: 1
   m_HorizontalAxis: Horizontal
   m_VerticalAxis: Vertical
   m_SubmitButton: Submit
@@ -185,6 +186,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -278,6 +280,7 @@ Transform:
   m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 1
@@ -362,6 +365,7 @@ Transform:
   m_LocalRotation: {x: 0.4226183, y: 0, z: 0, w: 0.9063078}
   m_LocalPosition: {x: 20, y: 15, z: -5}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -389,6 +393,7 @@ GameObject:
   - component: {fileID: 1352421713}
   - component: {fileID: 1352421712}
   - component: {fileID: 1352421714}
+  - component: {fileID: 1352421715}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -408,7 +413,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c696e2374fb5ba044a19b6f24c3bf3d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _FogOfWar: {fileID: 3845690706697429540, guid: 8311ef529b6698b468c1cb7d85c2213a, type: 3}
+  _tile: {fileID: 707821156019493933, guid: 117781ebca90f5949959e1e028071f0c, type: 3}
+  _useCellularAutomata: 1
+  _startWaterPercentage: 0.3
+  _caIterationAmount: 3
   _MapSizeX: 40
   _MapSizeY: 20
   _SeaLevel: 0.45
@@ -430,6 +438,7 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -446,10 +455,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 911045eb63f3561438c0a9778c4b1c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _BeachTile: {fileID: 2961297485639448579, guid: 81ca68f04c5d55b4b988145c13c7b8f4, type: 3}
-  _WaterTile: {fileID: 707821156019493933, guid: 117781ebca90f5949959e1e028071f0c, type: 3}
-  _OceanTile: {fileID: 1837526675674322491, guid: 2a02efb2836f0944790264dc1ce5dc21, type: 3}
-  _GrassTile: {fileID: 4112305269646330238, guid: a13b5e7fdee88a24d90df9d146cd7bec, type: 3}
-  _MountainTile: {fileID: 8643840905735104172, guid: fd0f3967da2b31044b187290115df3eb, type: 3}
-  _SnowTile: {fileID: 1529589170906089480, guid: 4cd141ff621660c4191081d8ea54c8ba, type: 3}
-  _ForestDetail: {fileID: 919132149155446097, guid: d770418279a21e141aa2ee445b7d8b08, type: 3}
+  _waterMat: {fileID: 2100000, guid: 67caab28357466d45b550bbf516bb990, type: 2}
+  _plainsMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
+--- !u!114 &1352421715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1352421711}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d250bb7aa234f7409fcb7253de7622e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

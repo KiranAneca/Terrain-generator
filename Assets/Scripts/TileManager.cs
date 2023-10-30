@@ -8,51 +8,38 @@ public class TileManager : MonoBehaviour
     private static TileManager _Instance = null;
 
     private GameObject _CurrentTileMenu;
-    private List<Tile> _Tiles;
+    private List<Tile> _tiles;
 
     [Header("Tiles")]
-    [SerializeField] private GameObject _BeachTile;
-    [SerializeField] private GameObject _WaterTile;
-    [SerializeField] private GameObject _OceanTile;
-    [SerializeField] private GameObject _GrassTile;
-    [SerializeField] private GameObject _MountainTile;
-    [SerializeField] private GameObject _SnowTile;
+    [SerializeField] private Material _waterMat;
+    [SerializeField] private Material _plainsMat;
 
-    [Header("Details")]
-    [SerializeField] private GameObject _ForestDetail;
 
     public void SetTiles(List<Tile> tiles)
     {
-        _Tiles = tiles;
+        _tiles = tiles;
     }
 
-    public GameObject GetTileObject(TileType type)
+    public Material GetTileMat(TileType type)
     {
         switch (type)
         {
-            // Details
-            case TileType.Forest: return _ForestDetail;
-            case TileType.Mountain: return _MountainTile;
-
-            // Tiles
-            case TileType.Beach: return _BeachTile;
-            case TileType.Ocean: return _OceanTile;
-            case TileType.Plains: return _GrassTile;
-            case TileType.Water: return _WaterTile;
-            case TileType.Snow: return _SnowTile;
+            case TileType.Land: return _plainsMat;
+            case TileType.Water: return _waterMat;
 
             default: return null;
         }
     }
 
-    public static List<Tile> GetSurroundingTiles(Tile centerTile)
+    public List<Tile> GetSurroundingTiles(Tile centerTile)
     {
         List<Tile> neighbourTiles = new List<Tile>();
+        List<Vector2> neighbours = new List<Vector2>{ new Vector2(1, 1), new Vector2(1, -1), new Vector2(0, -2), new Vector2(-1, -1), new Vector2(-1, 1), new Vector2(0, 2) };
 
-        Vector2 centerPos = new Vector2(centerTile._GridPosition.x, centerTile._GridPosition.y);
-        foreach(Tile tile in _Instance._Tiles)
+        Vector2 centerPos = new Vector2(centerTile.GetGridPosition().x, centerTile.GetGridPosition().y);
+        foreach(Tile tile in _Instance._tiles)
         {
-            if(Mathf.Abs(tile._GridPosition.x - centerPos.x) <= 1 && Mathf.Abs(tile._GridPosition.y - centerPos.y) <= 1)
+            if(neighbours.Contains(new Vector2(tile.GetGridPosition().x, tile.GetGridPosition().y) - centerPos))
             {
                 neighbourTiles.Add(tile);
             }
