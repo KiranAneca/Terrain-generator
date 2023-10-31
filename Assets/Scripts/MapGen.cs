@@ -103,7 +103,8 @@ public class MapGen : MonoBehaviour
     public void GenerateBiomes()
     {
         // Set the offset for the noisemaps, so they aren't the same noisemap
-        int mapOffset = Random.Range(1, 1000);
+        int landElevationOffset = Random.Range(1, 1000);
+        int waterElevationOffset = Random.Range(1, 1000);
         int temperatureOffset = Random.Range(1, 1000);
         int rainOffset = Random.Range(1, 1000);
         int vegetationOffset = Random.Range(1, 1000);
@@ -118,7 +119,8 @@ public class MapGen : MonoBehaviour
                 idx++;
 
                 // Generate the value for every tile and set them
-                float elevation = Mathf.PerlinNoise(x * _elevationScatter + mapOffset, y * _elevationScatter + mapOffset);
+                float landElevation = Mathf.PerlinNoise(x * _elevationScatter + landElevationOffset, y * _elevationScatter + landElevationOffset);
+                float waterElevation = Mathf.PerlinNoise(x * _elevationScatter + waterElevationOffset, y * _elevationScatter + waterElevationOffset);
                 float temperatureVal = Mathf.PerlinNoise(x * _temperatureScatter + temperatureOffset, y * _temperatureScatter + temperatureOffset);
                 float rainVal = Mathf.PerlinNoise(x * _rainScatter + rainOffset, y * _rainScatter + rainOffset);
                 float vegetationVal = Mathf.PerlinNoise(x * _vegetationScatter + vegetationOffset, y * _vegetationScatter + vegetationOffset);
@@ -128,7 +130,14 @@ public class MapGen : MonoBehaviour
                 float ironVal = Mathf.PerlinNoise(x * _ironScatter + IronOffset, y * _ironScatter + IronOffset);
                 if (ironVal < _ironSpawnThreshold) { ironVal = 0; }
 
-                _tileMap[idx].FT_Elevation = elevation;
+                if (_tileMap[idx].BT_isWater)
+                {
+                    _tileMap[idx].FT_Elevation = waterElevation;
+                }
+                else
+                {
+                    _tileMap[idx].FT_Elevation = landElevation;
+                }
                 _tileMap[idx].FT_Temperature = temperatureVal;
                 _tileMap[idx].FT_Vegetation = vegetationVal;
                 _tileMap[idx].FT_Rain = rainVal;

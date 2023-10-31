@@ -9,6 +9,11 @@ public class BoolTransition : BaseTransition
     {
         var type = tile.GetType();
         var property = type.GetProperty(transitionVariable, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField | System.Reflection.BindingFlags.GetProperty);
+        if (property == null)
+        {
+            Debug.LogError("BoolTransition property not set in: " + tile.GetBiome().name + ". Transitionvariable is: " + transitionVariable);
+            return 0;
+        }
         var value = property.GetValue(tile);
         return Convert.ToInt32(value);
     }

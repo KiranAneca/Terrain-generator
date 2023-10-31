@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   _linkBackBiome: {fileID: 11400000, guid: 4998d716454c156489f1f622f854bbf3, type: 2}
-  _transition: 1
+  _transition: FloatTransition
+  _transitionVariable: FT_Elevation
   _floatTransitionCondition: 2
-  _transitionVariable: 0
   _endBiome: 0
   _transitionBiomes:
   - Biome: {fileID: 11400000, guid: 3daf92ae200cce243b6f1f32ba8ac8c1, type: 2}

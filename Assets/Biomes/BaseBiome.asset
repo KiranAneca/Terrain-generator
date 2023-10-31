@@ -12,9 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 422ff6cf7d4354d4bb0e016eabc03f41, type: 3}
   m_Name: BaseBiome
   m_EditorClassIdentifier: 
+  _linkBackBiome: {fileID: 0}
+  _transition: BoolTransition
+  _transitionVariable: BT_isWater
+  _floatTransitionCondition: 0
   _endBiome: 0
-  _transition: 0
-  _transitionVariable: 6
   _transitionBiomes:
   - Biome: {fileID: 11400000, guid: c0cc4ec650639954eae659fa2ebd7995, type: 2}
     TransitionValue: 1

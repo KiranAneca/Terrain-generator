@@ -23,9 +23,9 @@ public enum FloatTransitionCondition
 public class Biome : ScriptableObject
 {
     [SerializeField] private Biome _linkBackBiome;
-    [SerializeField] private TransitionEnum _transition;
+    [SerializeField][Dropdown("DeterminatorHelper.Instance.GetTransitionTypes()")] private string _transition;
+    [SerializeField][Dropdown("DeterminatorHelper.Instance.GetTransitonVariables()")] private string _transitionVariable;
     [SerializeField] private FloatTransitionCondition _floatTransitionCondition;
-    [SerializeField] private TransitionVariableEnum _transitionVariable;
     [SerializeField] private bool _endBiome = true;
     [SerializeField] private List<TransitionBiome> _transitionBiomes;
 

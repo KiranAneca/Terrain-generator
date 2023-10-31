@@ -49,6 +49,11 @@ public class Tile : MonoBehaviour
         GetComponent<Renderer>().material = _biome.GetMat();
     }
 
+    public Biome GetBiome()
+    {
+        return _biome;
+    }
+
     public void SetElevation(float value)
     {
         _rawElevation = value;
