@@ -10,9 +10,12 @@ public class MapGen : MonoBehaviour
 {
     [SerializeField] private GameObject _tile;
 
+    [Header("Base")]
+    [SerializeField][Range(0.01f, 0.35f)] private float _elevationScatter = 0.34f;
+    [SerializeField][Range(0.0f, 1f)] private float _landSpawnThreshold = 0.3f;
+
     [Header("Cellular Automata")]
     [SerializeField] private bool _useCellularAutomata = false;
-    [SerializeField][Range(0.25f, 0.5f)] private float _startWaterPercentage = 0.45f;
     [SerializeField][Range(2, 4)] private int _caIterationAmount = 3;
 
     [Header("Parameters")]
@@ -20,7 +23,6 @@ public class MapGen : MonoBehaviour
     [SerializeField] private int _mapSizeY = 20;
 
     [Space(20)]
-    [SerializeField] [Range(0.01f, 0.35f)] private float _elevationScatter = 0.34f;
     [SerializeField] [Range(0.01f, 0.35f)] private float _rainScatter = 0.3f;
     [SerializeField][Range(0.01f, 0.35f)] private float _temperatureScatter = 0.3f;
     [SerializeField][Range(0.01f, 0.35f)] private float _vegetationScatter = 0.3f;
@@ -30,9 +32,6 @@ public class MapGen : MonoBehaviour
     [SerializeField][Range(0.0f, 1f)] private float _ironSpawnThreshold = 0.5f;
     [SerializeField][Range(0.01f, 0.35f)] private float _coalScatter = 0.3f;
     [SerializeField][Range(0.0f, 1f)] private float _coalSpawnThreshold = 0.5f;
-
-    [Header("Biomes")]
-    [SerializeField] [Range(0.01f, 1f)] private float _biomeScatter = 0.34f;
 
     private List<Tile> _tileMap;
 
@@ -56,19 +55,25 @@ public class MapGen : MonoBehaviour
         }
         _tileMap.Clear();
 
+        int idx = 0;
+        int elevationOffset = Random.Range(1, 1000);
         // Generate the initial map
         for (int x = 0; x < _mapSizeX; ++x)
         {
             for (int y = 0; y < _mapSizeY; ++y)
             {
+                idx++;
+                float elevation = Mathf.PerlinNoise(x * _elevationScatter + elevationOffset, y * _elevationScatter + elevationOffset);
+
                 // Randomly assign a a tile to be plains or water
                 GameObject obj = Instantiate(_tile, new Vector3(x, 0, y + (x % 2 / 2f)), _tile.transform.rotation);
                 obj.transform.SetParent(this.transform);
+
                 Tile tile = obj.GetComponent<Tile>();
                 tile.SetGridPosition(new Vector3(obj.transform.position.x, obj.transform.position.z * 2, 0));
+                tile.FT_Elevation = elevation;
 
-
-                if (Random.value < _startWaterPercentage)
+                if (elevation < _landSpawnThreshold)
                 {
                     tile.SetTileType(TileType.Water);
                 }
@@ -103,8 +108,6 @@ public class MapGen : MonoBehaviour
     public void GenerateBiomes()
     {
         // Set the offset for the noisemaps, so they aren't the same noisemap
-        int landElevationOffset = Random.Range(1, 1000);
-        int waterElevationOffset = Random.Range(1, 1000);
         int temperatureOffset = Random.Range(1, 1000);
         int rainOffset = Random.Range(1, 1000);
         int vegetationOffset = Random.Range(1, 1000);
@@ -119,24 +122,28 @@ public class MapGen : MonoBehaviour
                 idx++;
 
                 // Generate the value for every tile and set them
-                float landElevation = Mathf.PerlinNoise(x * _elevationScatter + landElevationOffset, y * _elevationScatter + landElevationOffset);
-                float waterElevation = Mathf.PerlinNoise(x * _elevationScatter + waterElevationOffset, y * _elevationScatter + waterElevationOffset);
                 float temperatureVal = Mathf.PerlinNoise(x * _temperatureScatter + temperatureOffset, y * _temperatureScatter + temperatureOffset);
                 float rainVal = Mathf.PerlinNoise(x * _rainScatter + rainOffset, y * _rainScatter + rainOffset);
                 float vegetationVal = Mathf.PerlinNoise(x * _vegetationScatter + vegetationOffset, y * _vegetationScatter + vegetationOffset);
 
                 float coalVal = Mathf.PerlinNoise(x * _coalScatter + coalOffset, y * _coalScatter + coalOffset);
-                if(coalVal < _coalSpawnThreshold) { coalVal = 0; }
-                float ironVal = Mathf.PerlinNoise(x * _ironScatter + IronOffset, y * _ironScatter + IronOffset);
-                if (ironVal < _ironSpawnThreshold) { ironVal = 0; }
-
-                if (_tileMap[idx].BT_isWater)
-                {
-                    _tileMap[idx].FT_Elevation = waterElevation;
+                if(coalVal < _coalSpawnThreshold) 
+                { 
+                    coalVal = 0;
                 }
                 else
                 {
-                    _tileMap[idx].FT_Elevation = landElevation;
+                    coalVal = Utility.NormalizeValueToNormalRange(_coalSpawnThreshold, 1, coalVal);
+                }
+
+                float ironVal = Mathf.PerlinNoise(x * _ironScatter + IronOffset, y * _ironScatter + IronOffset);
+                if (ironVal < _ironSpawnThreshold) 
+                { 
+                    ironVal = 0;
+                }
+                else
+                {
+                    ironVal = Utility.NormalizeValueToNormalRange(_ironSpawnThreshold, 1, ironVal);
                 }
                 _tileMap[idx].FT_Temperature = temperatureVal;
                 _tileMap[idx].FT_Vegetation = vegetationVal;

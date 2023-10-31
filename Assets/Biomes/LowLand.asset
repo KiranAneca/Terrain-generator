@@ -10,18 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 422ff6cf7d4354d4bb0e016eabc03f41, type: 3}
-  m_Name: Land
+  m_Name: LowLand
   m_EditorClassIdentifier: 
   _linkBackBiome: {fileID: 0}
-  _transition: FloatTransition
-  _transitionVariable: FT_Elevation
-  _floatTransitionCondition: 2
+  _transition: 
+  _transitionVariable: 
+  _floatTransitionCondition: 0
   _endBiome: 1
-  _transitionBiomes:
-  - Biome: {fileID: 11400000, guid: 7de4a696616ecf54294885b7e3e32d03, type: 2}
-    TransitionValue: 0.3
-  - Biome: {fileID: 11400000, guid: 19c26a7d0dedd1f41b099165e3875b96, type: 2}
-    TransitionValue: 0.6
-  - Biome: {fileID: 11400000, guid: 47c9d8db586af164796b76730a6a7ec2, type: 2}
-    TransitionValue: 0.8
+  _transitionBiomes: []
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}

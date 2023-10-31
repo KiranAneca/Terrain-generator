@@ -56,7 +56,7 @@ public class TransitionGenerator
         // Read the file and change the lists to the newly generated ones
         string filePathAndName = "Assets/Scripts/Determinator/" + "DeterminatorHelper" + ".cs"; //The folder Scripts/Enums/ is expected to exist
         StreamReader reader = new StreamReader(filePathAndName);
-        string newText = "";
+        List<string> newText = new List<string>();
         while (!reader.EndOfStream) 
         { 
             string text = reader.ReadLine();
@@ -68,11 +68,14 @@ public class TransitionGenerator
             {
                 text = transitionVariables;
             }
-            newText += text;
+            newText.Add(text);
         }
         reader.Close();
         StreamWriter writer = new StreamWriter(filePathAndName);
-        writer.Write(newText);
+        foreach(var item in newText)
+        {
+            writer.WriteLine(item);
+        }
         writer.Close();
 
         AssetDatabase.Refresh(); 
