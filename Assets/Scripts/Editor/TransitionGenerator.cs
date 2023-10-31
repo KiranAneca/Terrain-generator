@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 
 public class TransitionGenerator 
 {
-    [MenuItem("Tools/Generate Transition enum")]
+    [MenuItem("Tools/Generate Transition variables")]
     public static void Go()
     {
 
@@ -40,6 +40,7 @@ public class TransitionGenerator
 
         // Generate the new text lines
         string transitionType = "private static List<string> _transitionTypeList = new List<string>() {";
+        transitionType += "	\"" + "PLEASE SELECT VALUE" + "\",";
         foreach (var item in typeList)
         {
             transitionType += "	\"" + item.ToString() + "\",";
@@ -47,6 +48,7 @@ public class TransitionGenerator
         transitionType += "};";
 
         string transitionVariables = "private static List<string> _transitionVariableList = new List<string>() {";
+        transitionVariables += "\"" + "PLEASE SELECT VALUE" + "\",";
         foreach (var item in properties)
         {
             transitionVariables += "\"" + item.ToString() + "\",";

@@ -7,28 +7,19 @@ public class TileManager : MonoBehaviour
     // Singleton
     private static TileManager _Instance = null;
 
-    private GameObject _CurrentTileMenu;
     private List<Tile> _tiles;
 
-    [Header("Tiles")]
-    [SerializeField] private Material _waterMat;
-    [SerializeField] private Material _plainsMat;
+    [SerializeField] private BiomeGraph _biomeDeterminator;
+
+    public BiomeNode DetermineBiome(Tile tile)
+    {
+        return _biomeDeterminator.DetermineBiome(tile);
+    }
 
 
     public void SetTiles(List<Tile> tiles)
     {
         _tiles = tiles;
-    }
-
-    public Material GetTileMat(TileType type)
-    {
-        switch (type)
-        {
-            case TileType.Land: return _plainsMat;
-            case TileType.Water: return _waterMat;
-
-            default: return null;
-        }
     }
 
     public List<Tile> GetSurroundingTiles(Tile centerTile)

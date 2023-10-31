@@ -382,50 +382,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1db0856a7714c34d8fe1b1af1f7896e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1 &1140565662
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1140565664}
-  - component: {fileID: 1140565663}
-  m_Layer: 0
-  m_Name: Helper
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &1140565663
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140565662}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 168fa376a7ccb3f438e744f1617701a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!4 &1140565664
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1140565662}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1352421711
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,12 +413,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _tile: {fileID: 707821156019493933, guid: 117781ebca90f5949959e1e028071f0c, type: 3}
+  _elevationScatter: 0.34
+  _landSpawnThreshold: 0.3
   _useCellularAutomata: 1
-  _startWaterPercentage: 0.3
   _caIterationAmount: 3
   _mapSizeX: 40
   _mapSizeY: 20
-  _elevationScatter: 0.34
   _rainScatter: 0.3
   _temperatureScatter: 0.3
   _vegetationScatter: 0.3
@@ -470,7 +426,6 @@ MonoBehaviour:
   _ironSpawnThreshold: 0.5
   _coalScatter: 0.3
   _coalSpawnThreshold: 0.5
-  _biomeScatter: 0.34
 --- !u!4 &1352421713
 Transform:
   m_ObjectHideFlags: 0
@@ -498,8 +453,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 911045eb63f3561438c0a9778c4b1c4e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _waterMat: {fileID: 2100000, guid: 67caab28357466d45b550bbf516bb990, type: 2}
-  _plainsMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
+  _biomeDeterminator: {fileID: 11400000, guid: 0958b049d300a5546b224fed98787c6d, type: 2}
 --- !u!1 &1775713499
 GameObject:
   m_ObjectHideFlags: 3

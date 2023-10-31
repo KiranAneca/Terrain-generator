@@ -14,7 +14,7 @@ public class TransitionVar : Attribute { }
 
 public class Tile : MonoBehaviour
 {
-    [SerializeField] private Biome _biome;
+    [SerializeField] private BiomeNode _biome;
     [SerializeField] private TileType _tileType;
     [SerializeField] private Vector3 _gridPosition;
 
@@ -42,14 +42,11 @@ public class Tile : MonoBehaviour
     // Functions
     public void DetermineBiome()
     {
-        while(!_biome.IsEndBiome())
-        {
-            _biome = _biome.Determine(this);
-        }
+        _biome = TileManager.Instance.DetermineBiome(this);
         GetComponent<Renderer>().material = _biome.GetMat();
     }
 
-    public Biome GetBiome()
+    public BiomeNode GetBiome()
     {
         return _biome;
     }
@@ -57,10 +54,7 @@ public class Tile : MonoBehaviour
     public void SetElevation(float value)
     {
         _rawElevation = value;
-        if (_tileType == TileType.Water)
-        { 
-           // _rawElevation = -_rawElevation;
-        }
+        //gameObject.transform.localPosition += new Vector3(0, value, 0);
     }
 
     public TileType GetTileType()
