@@ -29,10 +29,13 @@ public class TransitionGenerator
 
         // Get all the flagged variables from the tile script
         List<string> properties = new List<string>();
-        var propertyValues = typeof(Tile).GetProperties();
+        var propertyValues = typeof(Tile).GetFields();
+
+
         for (int i = 0; i < propertyValues.Length; i++)
         {
-            if (propertyValues[i].Name.Contains("T_"))
+            BiomeVar lookupVar = Attribute.GetCustomAttribute(propertyValues[i], typeof(BiomeVar)) as BiomeVar;
+            if (lookupVar != null)
             {
                 properties.Add(propertyValues[i].Name);
             }

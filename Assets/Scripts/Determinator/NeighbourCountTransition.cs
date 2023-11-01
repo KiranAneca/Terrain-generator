@@ -9,7 +9,7 @@ public class NeighbourCountTransition : BaseTransition
     {
         float result = 0;
         var type = tile.GetType();
-        var property = type.GetProperty(transitionVariable, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField | System.Reflection.BindingFlags.GetProperty);
+        var property = type.GetField(transitionVariable, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField | System.Reflection.BindingFlags.GetProperty);
         if (property == null)
         {
             Debug.LogError("NeighbourCountTransition property not set in: " + tile.GetBiome().name + ". Transitionvariable is: " + transitionVariable);

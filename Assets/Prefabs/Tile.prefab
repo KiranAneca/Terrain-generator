@@ -97,13 +97,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dc786510b015694d89d7e488184d3da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _biome: {fileID: 11400000, guid: 4998d716454c156489f1f622f854bbf3, type: 2}
+  _biome: {fileID: 8116132713813659560, guid: 0958b049d300a5546b224fed98787c6d, type: 2}
   _tileType: 0
   _gridPosition: {x: 0, y: 0, z: 0}
   _neighbours: []
-  _elevation: 0
-  _temperature: 0
-  _rain: 0
+  IsWater: 0
+  RawElevation: 0
+  RawTemperature: 0
+  RawRain: 0
+  RawVegetation: 0
+  RawCoal: 0
+  RawIron: 0
 --- !u!64 &-5643866387704654625
 MeshCollider:
   m_ObjectHideFlags: 0

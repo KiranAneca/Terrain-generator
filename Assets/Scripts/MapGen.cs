@@ -71,7 +71,7 @@ public class MapGen : MonoBehaviour
 
                 Tile tile = obj.GetComponent<Tile>();
                 tile.SetGridPosition(new Vector3(obj.transform.position.x, obj.transform.position.z * 2, 0));
-                tile.FT_Elevation = elevation;
+                tile.RawElevation = elevation;
 
                 if (elevation < _landSpawnThreshold)
                 {
@@ -145,11 +145,11 @@ public class MapGen : MonoBehaviour
                 {
                     ironVal = Utility.NormalizeValueToNormalRange(_ironSpawnThreshold, 1, ironVal);
                 }
-                _tileMap[idx].FT_Temperature = temperatureVal;
-                _tileMap[idx].FT_Vegetation = vegetationVal;
-                _tileMap[idx].FT_Rain = rainVal;
-                _tileMap[idx].FT_Coal = coalVal;
-                _tileMap[idx].FT_Iron= ironVal;
+                _tileMap[idx].RawTemperature = temperatureVal;
+                _tileMap[idx].RawVegetation = vegetationVal;
+                _tileMap[idx].RawRain = rainVal;
+                _tileMap[idx].RawCoal = coalVal;
+                _tileMap[idx].RawIron= ironVal;
 
                 _tileMap[idx].DetermineBiome();
             }
