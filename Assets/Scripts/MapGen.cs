@@ -35,6 +35,11 @@ public class MapGen : MonoBehaviour
 
     private List<Tile> _tileMap;
 
+    [SerializeField] private Vector2Int _partitionedMapSize;
+    private List<Tile>[,] _partitionedMap;
+
+    public Vector2Int PartitionedMapSize { get => _partitionedMapSize; set => _partitionedMapSize = value; }
+
     void Start()
     {
         _tileMap = new List<Tile>();
@@ -43,6 +48,8 @@ public class MapGen : MonoBehaviour
 
     public void GenerateMap()
     {
+        _partitionedMap = new List<Tile>[_mapSizeX / PartitionedMapSize.x, _mapSizeY / PartitionedMapSize.y];
+
         TileManager tilesManager = TileManager.Instance;
 
         // Delete the old map
@@ -63,6 +70,8 @@ public class MapGen : MonoBehaviour
             for (int y = 0; y < _mapSizeY; ++y)
             {
                 idx++;
+
+                _partitionedMap[x / PartitionedMapSize.x, y / PartitionedMapSize.y] = new List<Tile>();
                 float elevation = Mathf.PerlinNoise(x * _elevationScatter + elevationOffset, y * _elevationScatter + elevationOffset);
 
                 // Randomly assign a a tile to be plains or water
@@ -85,6 +94,9 @@ public class MapGen : MonoBehaviour
                 _tileMap.Add(tile);
             }
         }
+
+        PartitionMap();
+
         // After generation we first of all set the map that is generated
         TileManager.Instance.SetTiles(_tileMap);
 
@@ -103,6 +115,19 @@ public class MapGen : MonoBehaviour
         GenerateBiomes();
 
         Camera.main.transform.eulerAngles = new Vector3(50, 0, 0);
+    }
+
+    private void PartitionMap()
+    {
+        foreach (Tile tile in _tileMap)
+        {
+            int x = (int)tile.GetGridPosition().x / PartitionedMapSize.x;
+            int y = ((int)tile.GetGridPosition().y / 2) / PartitionedMapSize.y;
+            _partitionedMap[x,y].Add(tile);
+
+            tile.PartionedChunk = new Vector2Int(x, y);
+        }
+        TileManager.Instance.SetPartitionedMap(_partitionedMap, _partitionedMapSize);
     }
 
     public void GenerateBiomes()
@@ -172,7 +197,6 @@ public class MapGen : MonoBehaviour
 
                     // Loop over all neighbours and if more then 3 are plains, make them plains as well
                     int plainsTiles = 0;
-                    List<Tile> neighbours = TileManager.Instance.GetSurroundingTiles(_tileMap[idx]);
                     foreach (Tile tile in _tileMap[idx].GetNeighbours())
                     {
                         if (tile.GetTileType() == TileType.Land)
@@ -202,6 +226,11 @@ public class MapGen : MonoBehaviour
                 }
             }
         }
+    }
+
+    public List<Tile>[,] GetPartitionedMap()
+    {
+        return _partitionedMap;
     }
 
     //public void GenerateMap()

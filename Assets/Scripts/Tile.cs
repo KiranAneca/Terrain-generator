@@ -12,6 +12,7 @@ public enum TileType
 [AttributeUsage(AttributeTargets.Field)]
 public class BiomeVar : Attribute { }
 
+[Serializable]
 public class Tile : MonoBehaviour
 {
     [SerializeField] private BiomeNode _biome;
@@ -21,7 +22,8 @@ public class Tile : MonoBehaviour
     [SerializeField] private List<Tile> _neighbours;
 
     // Parameters for generation
-    [SerializeField][BiomeVar] private bool isWater;
+    [SerializeField][BiomeVar] public bool IsWater;
+    [SerializeField][BiomeVar] public bool IsLand;
 
     [SerializeField][BiomeVar] public float RawElevation;
     [SerializeField][BiomeVar] public float RawTemperature;
@@ -31,7 +33,10 @@ public class Tile : MonoBehaviour
     [SerializeField][BiomeVar] public float RawCoal;
     [SerializeField][BiomeVar] public float RawIron;
 
-    public bool IsWater { get => isWater; set => isWater = value; }
+    [SerializeField] private Vector2Int _partionedChunk;
+
+    public Vector2Int PartionedChunk { get => _partionedChunk; set => _partionedChunk = value; }
+
 
     // Functions
     public void DetermineBiome()
@@ -69,6 +74,7 @@ public class Tile : MonoBehaviour
     {
         _tileType = tileType;
         IsWater = tileType == TileType.Water;
+        IsLand = tileType == TileType.Land;
     }
 
     public Vector3 GetGridPosition()

@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class BoolTransition : BaseTransition
 {
-    public override float Determine(Tile tile, string transitionVariable)
+    public override float Determine(Tile tile, string transitionVariable, float maxRange = 0)
     {
         var type = tile.GetType();
         var property = type.GetField(transitionVariable, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField | System.Reflection.BindingFlags.GetProperty);

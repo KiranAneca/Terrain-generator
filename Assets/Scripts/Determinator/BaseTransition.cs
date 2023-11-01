@@ -6,7 +6,7 @@ using UnityEngine;
 [Serializable]
 public class BaseTransition 
 {
-    public virtual float Determine(Tile tile, string transitionVariable)
+    public virtual float Determine(Tile tile, string transitionVariable, float maxRange = 0)
     {
         return 0;
     }

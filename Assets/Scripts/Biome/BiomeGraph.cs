@@ -21,6 +21,7 @@ public class BiomeGraph : NodeGraph
             // Add all the options to the list
             var ports = currentBiome.GetAllOutputPorts();
             List<NodePort> connections = new List<NodePort>();
+
             for (int i = 0; i < ports.Count; i++)
             {
                 if (ports[i].ConnectionCount > 0)
@@ -32,9 +33,17 @@ public class BiomeGraph : NodeGraph
             string typeName = transitionType.ToString();
             Type type = Type.GetType(typeName);
 
-            BaseTransition transition = Activator.CreateInstance(type) as BaseTransition;
+            float biggestRange = 0;
+            for (int i = 0; i < connections.Count; i++)
+            {
+                if(transitionValues[i] >= biggestRange)
+                {
+                    biggestRange = transitionValues[i];
+                }
+            }
 
-            float transitionValue = transition.Determine(tile, transitionVariable.ToString());
+            BaseTransition transition = Activator.CreateInstance(type) as BaseTransition;
+            float transitionValue = transition.Determine(tile, transitionVariable.ToString(), biggestRange);
 
 
             NodePort newNode = connections[0];
