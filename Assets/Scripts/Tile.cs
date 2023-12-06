@@ -9,6 +9,18 @@ public enum TileType
     Water = 1,
 }
 
+public struct TileData
+{
+    public BiomeNode BiomeType;
+    public float Elevation;
+    public float Temperature;
+    public float Rain;
+    public string Vegetation;
+    public float Iron;
+    public float Coal;
+
+}
+
 [AttributeUsage(AttributeTargets.Field)]
 public class BiomeVar : Attribute { }
 
@@ -18,6 +30,9 @@ public class Tile : MonoBehaviour
     [SerializeField] private BiomeNode _biome;
     [SerializeField] private TileType _tileType;
     [SerializeField] private Vector3 _gridPosition;
+
+    // Actual data
+    private TileData _data;
 
     [SerializeField] private List<Tile> _neighbours;
 
@@ -39,21 +54,40 @@ public class Tile : MonoBehaviour
 
 
     // Functions
+    public void VisualizeElevation(float multiplier)
+    {
+        if(IsWater) 
+        {
+            return; 
+        }
+        transform.localScale = new Vector3(1, 1, RawElevation * multiplier);
+    }
+
     public void DetermineBiome()
     {
         _biome = TileManager.Instance.DetermineBiome(this);
         GetComponent<Renderer>().material = _biome.GetMat();
+
+        FillData();
+    }
+
+
+    private void FillData()
+    {
+        // Fill in the correct data
+        _data.BiomeType = _biome;
+
+        _data.Elevation = RawElevation;
+        _data.Temperature = RawTemperature;
+        _data.Rain = RawRain;
+        _data.Vegetation = RawVegetation.ToString("F2");
+        _data.Coal = RawCoal;
+        _data.Iron = RawIron;
     }
 
     public BiomeNode GetBiome()
     {
         return _biome;
-    }
-
-    public void SetElevation(float value)
-    {
-        RawElevation = value;
-        //gameObject.transform.localPosition += new Vector3(0, value, 0);
     }
 
     public TileType GetTileType()
@@ -85,6 +119,11 @@ public class Tile : MonoBehaviour
     public void SetGridPosition(Vector3 gridPosition)
     {
         _gridPosition = gridPosition;
+    }
+
+    private void OnMouseDown()
+    {
+        BiomeCard.Instance.OpenBiomeCard(_data);
     }
 }
 

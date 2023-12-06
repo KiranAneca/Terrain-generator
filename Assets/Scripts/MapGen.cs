@@ -8,7 +8,12 @@ using Random = UnityEngine.Random;
 
 public class MapGen : MonoBehaviour
 {
+    private static MapGen _instance = null;
+
     [SerializeField] private GameObject _tile;
+
+    [Header("Visual")]
+    [SerializeField] private float _heightMultiplier = 10f;
 
     [Header("Base")]
     [SerializeField][Range(0.01f, 0.35f)] private float _elevationScatter = 0.34f;
@@ -33,6 +38,10 @@ public class MapGen : MonoBehaviour
     [SerializeField][Range(0.01f, 0.35f)] private float _coalScatter = 0.3f;
     [SerializeField][Range(0.0f, 1f)] private float _coalSpawnThreshold = 0.5f;
 
+    [Header("Remapping")]
+    public AnimationCurve TemperatureMapper;
+    
+
     private List<Tile> _tileMap;
 
     [SerializeField] private Vector2Int _partitionedMapSize;
@@ -42,6 +51,7 @@ public class MapGen : MonoBehaviour
 
     void Start()
     {
+        _instance = this;
         _tileMap = new List<Tile>();
         GenerateMap();
     }
@@ -110,6 +120,11 @@ public class MapGen : MonoBehaviour
         if(_useCellularAutomata)
         {
             PerformCellularAutomata();
+        }
+
+        foreach (Tile tile in _tileMap)
+        {
+            tile.VisualizeElevation(_heightMultiplier);
         }
 
         GenerateBiomes();
@@ -231,6 +246,25 @@ public class MapGen : MonoBehaviour
     public List<Tile>[,] GetPartitionedMap()
     {
         return _partitionedMap;
+    }
+
+    public static MapGen Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = FindObjectOfType(typeof(MapGen)) as MapGen;
+            }
+
+            if (_instance == null)
+            {
+                var obj = new GameObject("Map");
+                _instance = obj.AddComponent<MapGen>();
+            }
+
+            return _instance;
+        }
     }
 
     //public void GenerateMap()

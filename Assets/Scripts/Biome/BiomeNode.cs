@@ -18,7 +18,7 @@ public struct TransitionBiomeNode
     public float TransitionValue;
 }
 
-[NodeWidth(250)]
+[NodeWidth(275)]
 public class BiomeNode : Node {
 
     [SerializeField][Dropdown("DeterminatorHelper.GetTransitionTypes()")] private string _transitionType;
