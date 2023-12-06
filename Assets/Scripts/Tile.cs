@@ -65,8 +65,19 @@ public class Tile : MonoBehaviour
 
     public void DetermineBiome()
     {
+        // Determining the biome
         _biome = TileManager.Instance.DetermineBiome(this);
+
+        // Visuals
         GetComponent<Renderer>().material = _biome.GetMat();
+        GameObject obj = _biome.GetExtraVisual();
+        if (obj != null)
+        {
+            GameObject extraVisual = Instantiate(obj);
+            extraVisual.transform.parent = transform;
+            extraVisual.transform.localPosition = Vector3.zero;
+            extraVisual.transform.localRotation = Quaternion.Euler(0, 0, UnityEngine.Random.Range(0, 360));
+        }
 
         FillData();
     }

@@ -393,7 +393,6 @@ GameObject:
   - component: {fileID: 1352421713}
   - component: {fileID: 1352421712}
   - component: {fileID: 1352421714}
-  - component: {fileID: 1352421715}
   m_Layer: 0
   m_Name: Map
   m_TagString: Untagged
@@ -415,9 +414,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _tile: {fileID: 707821156019493933, guid: 117781ebca90f5949959e1e028071f0c, type: 3}
   _heightMultiplier: 1
-  _elevationScatter: 0.34
-  _landSpawnThreshold: 0.3
-  _useCellularAutomata: 1
+  _elevationScatter: 0.129
+  _landSpawnThreshold: 0.598
+  _useCellularAutomata: 0
   _caIterationAmount: 3
   _mapSizeX: 40
   _mapSizeY: 20
@@ -452,6 +451,57 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 0
     m_RotationOrder: 4
+  HeightMapper:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 664.4328
+      outSlope: 664.4328
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.64284956
+      value: 427.13034
+      inSlope: 2548.8916
+      outSlope: 2548.8916
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33846173
+    - serializedVersion: 3
+      time: 0.85649884
+      value: 2283.7073
+      inSlope: -248.3699
+      outSlope: -248.3699
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.054743946
+      outWeight: 0.12107965
+    - serializedVersion: 3
+      time: 0.9589465
+      value: 4717.6
+      inSlope: 1129.2208
+      outSlope: 1129.2208
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 1
+    - serializedVersion: 3
+      time: 1
+      value: 6000
+      inSlope: 31237.305
+      outSlope: 31237.305
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   _partitionedMapSize: {x: 5, y: 5}
 --- !u!4 &1352421713
 Transform:
@@ -481,24 +531,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _biomeDeterminator: {fileID: 11400000, guid: 0958b049d300a5546b224fed98787c6d, type: 2}
---- !u!114 &1352421715
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1352421711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 03d3249923c2f9942be2701809b38ff6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  TemperatueMapper:
-    serializedVersion: 2
-    m_Curve: []
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
 --- !u!1 &1375182585
 GameObject:
   m_ObjectHideFlags: 0
@@ -781,6 +813,10 @@ PrefabInstance:
     - target: {fileID: 7654697689630996210, guid: 7d440deeda0eee248975f241f4580f28, type: 3}
       propertyPath: m_Name
       value: BiomeCard
+      objectReference: {fileID: 0}
+    - target: {fileID: 7654697689630996210, guid: 7d440deeda0eee248975f241f4580f28, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d440deeda0eee248975f241f4580f28, type: 3}

@@ -18,15 +18,16 @@ public struct TransitionBiomeNode
     public float TransitionValue;
 }
 
-[NodeWidth(275)]
+[NodeWidth(300)]
 public class BiomeNode : Node {
 
     [SerializeField][Dropdown("DeterminatorHelper.GetTransitionTypes()")] private string _transitionType;
     [SerializeField][Dropdown("DeterminatorHelper.GetTransitonVariables()")] private string _transitionVariable;
     [SerializeField] private TransitionCondition _transitionCondition;
-    [SerializeField][Output(dynamicPortList = true)] private List<float> _transitionValues;
+    [SerializeField][Output(dynamicPortList = true)] private List<float> _transitionValues = new List<float>();
 
     [SerializeField] private Material _biomeMat;
+    [SerializeField] private GameObject _extraVisual;
 
     [SerializeField][Output] private float _outputValue;
     [SerializeField][Input] private float _inputValue;
@@ -73,5 +74,10 @@ public class BiomeNode : Node {
     public Material GetMat()
     {
         return _biomeMat;
+    }
+
+    public GameObject GetExtraVisual() 
+    { 
+        return _extraVisual;
     }
 }

@@ -40,6 +40,7 @@ public class MapGen : MonoBehaviour
 
     [Header("Remapping")]
     public AnimationCurve TemperatureMapper;
+    public AnimationCurve HeightMapper;
     
 
     private List<Tile> _tileMap;
@@ -122,8 +123,13 @@ public class MapGen : MonoBehaviour
             PerformCellularAutomata();
         }
 
+        // Recalculate the waterline and set the heights
         foreach (Tile tile in _tileMap)
         {
+            if(tile.IsWater) 
+            {
+                tile.RawElevation = _landSpawnThreshold;
+            }
             tile.VisualizeElevation(_heightMultiplier);
         }
 
@@ -201,7 +207,8 @@ public class MapGen : MonoBehaviour
         for (int i = 0; i < _caIterationAmount; i++)
         {
             // Make a buffer as to not use the changed data in the process of one iteration
-            TileType[,] newTileMap = new TileType[_mapSizeX, _mapSizeY];
+            Tile[,] newTileMap = new Tile[_mapSizeX, _mapSizeY];
+
 
             int idx = -1;
             for (int x = 0; x < _mapSizeX; ++x)
@@ -209,11 +216,17 @@ public class MapGen : MonoBehaviour
                 for (int y = 0; y < _mapSizeY; ++y)
                 {
                     idx++;
+                    newTileMap[x, y] = new Tile();
+                    newTileMap[x, y].RawElevation = _tileMap[idx].RawElevation;
 
                     // Loop over all neighbours and if more then 3 are plains, make them plains as well
                     int plainsTiles = 0;
+                    float cumHeight = 0;
+                    int loop = 0;
                     foreach (Tile tile in _tileMap[idx].GetNeighbours())
                     {
+                        loop++;
+                        cumHeight += tile.RawElevation;
                         if (tile.GetTileType() == TileType.Land)
                         {
                             plainsTiles++;
@@ -221,11 +234,16 @@ public class MapGen : MonoBehaviour
                     }
                     if (plainsTiles <= 3) 
                     {
-                        newTileMap[x, y] = (TileType.Water);
+                        newTileMap[x, y].SetTileType(TileType.Water);
                     }
                     else
                     {
-                        newTileMap[x, y] = (TileType.Land);
+                        // If the terrain changed to land, set it to the average of the neighbours
+                        if (_tileMap[idx].GetTileType() != TileType.Land)
+                        {
+                            newTileMap[x, y].RawElevation = cumHeight / loop;
+                        }
+                        newTileMap[x, y].SetTileType(TileType.Land);
                     }
                 }
             }
@@ -237,7 +255,8 @@ public class MapGen : MonoBehaviour
                 for (int y = 0; y < _mapSizeY; ++y)
                 {
                     idx++; 
-                    _tileMap[idx].SetTileType(newTileMap[x, y]);
+                    _tileMap[idx].SetTileType(newTileMap[x, y].GetTileType());
+                    _tileMap[idx].RawElevation = newTileMap[x, y].RawElevation;
                 }
             }
         }

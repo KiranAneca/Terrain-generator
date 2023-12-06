@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HighLand
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -872, y: 40}
+  position: {x: -1032, y: 40}
   ports:
     keys:
     - _transitionValues
@@ -56,6 +56,66 @@ MonoBehaviour:
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: b1da140245082fd48b4c8cb6547299e2, type: 2}
+  _extraVisual: {fileID: 0}
+  _outputValue: 0
+  _inputValue: 0
+--- !u!114 &-3999094705662493612
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1f9f7efb981b743a9ba17244e99cd0, type: 3}
+  m_Name: Forest
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -296, y: -136}
+  ports:
+    keys:
+    - _transitionValues
+    - _outputValue
+    - _inputValue
+    values:
+    - _fieldName: _transitionValues
+      _node: {fileID: -3999094705662493612}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.Single, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _outputValue
+      _node: {fileID: -3999094705662493612}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _inputValue
+      _node: {fileID: -3999094705662493612}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: _transitionValues 1
+        node: {fileID: -1762261710174775395}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _transitionType: 
+  _transitionVariable: 
+  _transitionCondition: 0
+  _transitionValues: []
+  _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
+  _extraVisual: {fileID: 919132149155446097, guid: d770418279a21e141aa2ee445b7d8b08, type: 3}
   _outputValue: 0
   _inputValue: 0
 --- !u!114 &-3695648466957685702
@@ -71,7 +131,7 @@ MonoBehaviour:
   m_Name: Coast
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -536, y: 8}
+  position: {x: -664, y: -40}
   ports:
     keys:
     - _transitionValues
@@ -114,6 +174,7 @@ MonoBehaviour:
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 4e810d7903f955a419596cc7934e21bf, type: 2}
+  _extraVisual: {fileID: 0}
   _outputValue: 0
   _inputValue: 0
 --- !u!114 &-2764976510677766676
@@ -129,7 +190,7 @@ MonoBehaviour:
   m_Name: ShallowWater
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1048, y: 504}
+  position: {x: -1048, y: 408}
   ports:
     keys:
     - _transitionValues
@@ -172,6 +233,7 @@ MonoBehaviour:
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 67caab28357466d45b550bbf516bb990, type: 2}
+  _extraVisual: {fileID: 0}
   _outputValue: 0
   _inputValue: 0
 --- !u!114 &-1762261710174775395
@@ -187,12 +249,14 @@ MonoBehaviour:
   m_Name: LowLand
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -536, y: -264}
+  position: {x: -664, y: -296}
   ports:
     keys:
     - _transitionValues
     - _outputValue
     - _inputValue
+    - _transitionValues 0
+    - _transitionValues 1
     values:
     - _fieldName: _transitionValues
       _node: {fileID: -1762261710174775395}
@@ -225,11 +289,40 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: 
-  _transitionVariable: 
-  _transitionCondition: 0
-  _transitionValues: []
+    - _fieldName: _transitionValues 0
+      _node: {fileID: -1762261710174775395}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.Single, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: _inputValue
+        node: {fileID: 3593279916311651534}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: _transitionValues 1
+      _node: {fileID: -1762261710174775395}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.Single, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: _inputValue
+        node: {fileID: -3999094705662493612}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  _transitionType: FloatTransition
+  _transitionVariable: RawVegetation
+  _transitionCondition: 2
+  _transitionValues:
+  - 0
+  - 0.6
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
+  _extraVisual: {fileID: 0}
   _outputValue: 0
   _inputValue: 0
 --- !u!114 &11400000
@@ -254,6 +347,8 @@ MonoBehaviour:
   - {fileID: -3695648466957685702}
   - {fileID: -2764976510677766676}
   - {fileID: 4992642241162467259}
+  - {fileID: -3999094705662493612}
+  - {fileID: 3593279916311651534}
   _startingBiome: {fileID: 8116132713813659560}
 --- !u!114 &1380240456831389638
 MonoBehaviour:
@@ -268,7 +363,7 @@ MonoBehaviour:
   m_Name: LowLand
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -872, y: -216}
+  position: {x: -1032, y: -216}
   ports:
     keys:
     - _transitionValues
@@ -341,6 +436,7 @@ MonoBehaviour:
   - 0
   - 0.1
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
+  _extraVisual: {fileID: 0}
   _outputValue: 0
   _inputValue: 0
 --- !u!114 &3460060628401596803
@@ -356,7 +452,7 @@ MonoBehaviour:
   m_Name: Land
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1208, y: -120}
+  position: {x: -1352, y: -120}
   ports:
     keys:
     - _transitionValues
@@ -430,8 +526,68 @@ MonoBehaviour:
   _transitionCondition: 2
   _transitionValues:
   - 0.3
-  - 0.8
+  - 0.75
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
+  _extraVisual: {fileID: 0}
+  _outputValue: 0
+  _inputValue: 0
+--- !u!114 &3593279916311651534
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1f9f7efb981b743a9ba17244e99cd0, type: 3}
+  m_Name: Plains
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -296, y: -328}
+  ports:
+    keys:
+    - _transitionValues
+    - _outputValue
+    - _inputValue
+    values:
+    - _fieldName: _transitionValues
+      _node: {fileID: 3593279916311651534}
+      _typeQualifiedName: System.Collections.Generic.List`1[[System.Single, mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
+        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _outputValue
+      _node: {fileID: 3593279916311651534}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _inputValue
+      _node: {fileID: 3593279916311651534}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: _transitionValues 0
+        node: {fileID: -1762261710174775395}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+  _transitionType: 
+  _transitionVariable: 
+  _transitionCondition: 0
+  _transitionValues: []
+  _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
+  _extraVisual: {fileID: 0}
   _outputValue: 0
   _inputValue: 0
 --- !u!114 &4992642241162467259
@@ -447,7 +603,7 @@ MonoBehaviour:
   m_Name: Ocean
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1048, y: 280}
+  position: {x: -1048, y: 232}
   ports:
     keys:
     - _transitionValues
@@ -490,6 +646,7 @@ MonoBehaviour:
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: ed81f0b75c1fa734abb947e9cddb6713, type: 2}
+  _extraVisual: {fileID: 0}
   _outputValue: 0
   _inputValue: 0
 --- !u!114 &5777602535056472022
@@ -505,7 +662,7 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1352, y: 152}
+  position: {x: -1400, y: 184}
   ports:
     keys:
     - _outputValue
@@ -591,6 +748,7 @@ MonoBehaviour:
   - 0
   - 2
   _biomeMat: {fileID: 2100000, guid: ed81f0b75c1fa734abb947e9cddb6713, type: 2}
+  _extraVisual: {fileID: 0}
   _outputValue: 0
   _inputValue: 0
 --- !u!114 &8116132713813659560
@@ -606,7 +764,7 @@ MonoBehaviour:
   m_Name: StartingBiome
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1608, y: -152}
+  position: {x: -1704, y: -120}
   ports:
     keys:
     - _transitionValues
@@ -676,5 +834,6 @@ MonoBehaviour:
   - 0
   - 1
   _biomeMat: {fileID: 0}
+  _extraVisual: {fileID: 0}
   _outputValue: 0
   _inputValue: 0
