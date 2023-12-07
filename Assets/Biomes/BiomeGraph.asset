@@ -434,7 +434,7 @@ MonoBehaviour:
   _transitionCondition: 2
   _transitionValues:
   - 0
-  - 0.1
+  - 1
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
   _extraVisual: {fileID: 0}
   _outputValue: 0

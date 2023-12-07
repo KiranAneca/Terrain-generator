@@ -22,7 +22,8 @@ public class NeighbourCountTransition : BaseTransition
             result += Convert.ToInt32(temp);
         }
         // Normalize them to range [0, 1] to be able to determine the percentage easy
-        result = Utility.NormalizeValueToNormalRange(0, tile.GetNeighbours().Count, result);
+       // result = Utility.NormalizeValueToNormalRange(0, tile.GetNeighbours().Count, result);
+
         return result;
     }
 }
