@@ -24,8 +24,8 @@ public class BiomeCard : MonoBehaviour
     {
 
         _biomeText.text = data.BiomeType.name;
-        _elevationText.text = "Elevation: " + MapGen.Instance.HeightMapper.Evaluate(data.Elevation).ToString("F2") + "m";
-        _temperatureText.text = "Temperature: " + MapGen.Instance.TemperatureMapper.Evaluate(data.Temperature).ToString("F2") + "°C";
+        _elevationText.text = "Elevation: " + MapGen.Instance.HeightMapper.Evaluate(data.Elevation).ToString("F0") + "m";
+        _temperatureText.text = "Temperature: " + MapGen.Instance.TemperatureMapper.Evaluate(data.Temperature).ToString("F0") + "°C";
         _rainText.text = "Rain: " + data.Rain.ToString("F2") + "mm";
         _vegetationText.text = "Vegetation: " + data.Vegetation;
 

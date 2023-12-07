@@ -415,7 +415,7 @@ MonoBehaviour:
   _tile: {fileID: 707821156019493933, guid: 117781ebca90f5949959e1e028071f0c, type: 3}
   _heightMultiplier: 1
   _elevationScatter: 0.129
-  _landSpawnThreshold: 0.598
+  _landSpawnThreshold: 0.494
   _useCellularAutomata: 0
   _caIterationAmount: 3
   _mapSizeX: 40
@@ -473,16 +473,16 @@ MonoBehaviour:
       inWeight: 0.33333334
       outWeight: 0.33846173
     - serializedVersion: 3
-      time: 0.85649884
-      value: 2283.7073
-      inSlope: -248.3699
-      outSlope: -248.3699
+      time: 0.94343656
+      value: 2354.462
+      inSlope: 17946.006
+      outSlope: 17946.006
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.054743946
-      outWeight: 0.12107965
+      inWeight: 0.10106124
+      outWeight: 0.47823924
     - serializedVersion: 3
-      time: 0.9589465
+      time: 0.98649144
       value: 4717.6
       inSlope: 1129.2208
       outSlope: 1129.2208
@@ -493,8 +493,8 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 1
       value: 6000
-      inSlope: 31237.305
-      outSlope: 31237.305
+      inSlope: 94932.41
+      outSlope: 94932.41
       tangentMode: 34
       weightedMode: 0
       inWeight: 0.33333334

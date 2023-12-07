@@ -11,6 +11,19 @@ public class BiomeNodeEditor : NodeEditor
 {
     private BiomeNode _baseNode;
 
+    public override Color GetTint()
+    {
+        if (_baseNode == null) _baseNode = target as BiomeNode;
+
+        if (_baseNode == null) return base.GetTint();
+
+        if (_baseNode.GetTransitionValues().Count != 0)
+        {
+            return base.GetTint() / 1.2f;
+        }
+        return base.GetTint();
+    }
+
     public override void OnBodyGUI()
     {
         if (_baseNode == null) _baseNode = target as BiomeNode;

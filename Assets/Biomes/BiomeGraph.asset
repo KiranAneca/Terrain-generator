@@ -72,7 +72,7 @@ MonoBehaviour:
   m_Name: Forest
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -296, y: -136}
+  position: {x: -216, y: -152}
   ports:
     keys:
     - _transitionValues
@@ -110,8 +110,8 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: 
-  _transitionVariable: 
+  _transitionType: PLEASE SELECT VALUE
+  _transitionVariable: PLEASE SELECT VALUE
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: Coast
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -664, y: -40}
+  position: {x: -600, y: -40}
   ports:
     keys:
     - _transitionValues
@@ -169,8 +169,8 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: 
-  _transitionVariable: 
+  _transitionType: PLEASE SELECT VALUE
+  _transitionVariable: PLEASE SELECT VALUE
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 4e810d7903f955a419596cc7934e21bf, type: 2}
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_Name: ShallowWater
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1048, y: 408}
+  position: {x: -1032, y: 392}
   ports:
     keys:
     - _transitionValues
@@ -228,8 +228,8 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: 
-  _transitionVariable: 
+  _transitionType: PLEASE SELECT VALUE
+  _transitionVariable: PLEASE SELECT VALUE
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 67caab28357466d45b550bbf516bb990, type: 2}
@@ -249,7 +249,7 @@ MonoBehaviour:
   m_Name: LowLand
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -664, y: -296}
+  position: {x: -600, y: -296}
   ports:
     keys:
     - _transitionValues
@@ -525,7 +525,7 @@ MonoBehaviour:
   _transitionVariable: RawElevation
   _transitionCondition: 2
   _transitionValues:
-  - 0.3
+  - 0
   - 0.8
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
   _extraVisual: {fileID: 0}
@@ -544,7 +544,7 @@ MonoBehaviour:
   m_Name: Plains
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -296, y: -328}
+  position: {x: -216, y: -328}
   ports:
     keys:
     - _transitionValues
@@ -582,8 +582,8 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: 
-  _transitionVariable: 
+  _transitionType: PLEASE SELECT VALUE
+  _transitionVariable: PLEASE SELECT VALUE
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
@@ -603,7 +603,7 @@ MonoBehaviour:
   m_Name: Ocean
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1048, y: 232}
+  position: {x: -1032, y: 216}
   ports:
     keys:
     - _transitionValues
@@ -641,8 +641,8 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: 
-  _transitionVariable: 
+  _transitionType: PLEASE SELECT VALUE
+  _transitionVariable: PLEASE SELECT VALUE
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: ed81f0b75c1fa734abb947e9cddb6713, type: 2}
