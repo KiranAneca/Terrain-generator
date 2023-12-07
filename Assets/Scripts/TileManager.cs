@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class TileManager : MonoBehaviour
@@ -43,7 +44,8 @@ public class TileManager : MonoBehaviour
                     foreach (Tile tile in _partitionedMap[x, y])
                     {
                         // If the tile is in range
-                        if( GetDistance( new Vector2(centerTile.GetGridPosition().x, centerTile.GetGridPosition().y), new Vector2(tile.GetGridPosition().x, tile.GetGridPosition().y)) <= range)
+                        int foundDistance = GetDistance(centerTile.GetGridPosition(), tile.GetGridPosition());
+                        if( foundDistance <= range)
                         {
                             var type = tile.GetType();
                             var property = type.GetField(valueToCheck, System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.GetField | System.Reflection.BindingFlags.GetProperty);
@@ -67,19 +69,19 @@ public class TileManager : MonoBehaviour
         return int.MaxValue;
     }
 
-    public float GetDistance(Vector2 firstTile, Vector2 secondTile)
+    public int GetDistance(Vector2Int firstTile, Vector2Int secondTile)
     {
-        float dcol = Mathf.Abs(firstTile.x - secondTile.x);
-        float drow = Mathf.Abs(firstTile.y - secondTile.y);
-        return dcol + Mathf.Max(0, (drow - dcol) / 2);
+        int dcol = Mathf.Abs(firstTile.x - secondTile.x);
+        int drow = Mathf.Abs(firstTile.y - secondTile.y);
+        return dcol + Mathf.Max(0, (int) ((drow - dcol) / 2f));
     }
 
     public List<Tile> GetSurroundingTiles(Tile centerTile)
     {
         List<Tile> neighbourTiles = new List<Tile>();
-        List<Vector2> neighbours = new List<Vector2> { new Vector2(1, 1), new Vector2(1, -1), new Vector2(0, -2), new Vector2(-1, -1), new Vector2(-1, 1), new Vector2(0, 2) };
+        List<Vector2Int> neighbours = new List<Vector2Int> { new Vector2Int(1, 1), new Vector2Int(1, -1), new Vector2Int(0, -2), new Vector2Int(-1, -1), new Vector2Int(-1, 1), new Vector2Int(0, 2) };
 
-        Vector2 centerPos = new Vector2(centerTile.GetGridPosition().x, centerTile.GetGridPosition().y);
+        Vector2Int centerPos = centerTile.GetGridPosition();
         for (int x = 0; x < _partitionedMap.GetLength(0); x++)
         {
             for (int y = 0; y < _partitionedMap.GetLength(1); y++)
@@ -89,7 +91,7 @@ public class TileManager : MonoBehaviour
                 {
                     foreach (Tile tile in _partitionedMap[x, y])
                     {
-                        if (neighbours.Contains(new Vector2(tile.GetGridPosition().x, tile.GetGridPosition().y) - centerPos))
+                        if (neighbours.Contains(centerPos - tile.GetGridPosition()))
                         {
                             neighbourTiles.Add(tile);
                         }

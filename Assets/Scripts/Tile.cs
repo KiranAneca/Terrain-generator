@@ -29,7 +29,7 @@ public class Tile : MonoBehaviour
 {
     [SerializeField] private BiomeNode _biome;
     [SerializeField] private TileType _tileType;
-    [SerializeField] private Vector3 _gridPosition;
+    [SerializeField] private Vector2Int _gridPosition;
 
     // Actual data
     private TileData _data;
@@ -122,12 +122,12 @@ public class Tile : MonoBehaviour
         IsLand = tileType == TileType.Land;
     }
 
-    public Vector3 GetGridPosition()
+    public Vector2Int GetGridPosition()
     {
         return _gridPosition;
     }
 
-    public void SetGridPosition(Vector3 gridPosition)
+    public void SetGridPosition(Vector2Int gridPosition)
     {
         _gridPosition = gridPosition;
     }

@@ -90,7 +90,8 @@ public class MapGen : MonoBehaviour
                 obj.transform.SetParent(this.transform);
 
                 Tile tile = obj.GetComponent<Tile>();
-                tile.SetGridPosition(new Vector3(obj.transform.position.x, obj.transform.position.z * 2, 0));
+
+                tile.SetGridPosition(new Vector2Int(x, y * 2 + (x % 2)));
                 tile.RawElevation = elevation;
 
                 if (elevation < _landSpawnThreshold)

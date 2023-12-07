@@ -22,7 +22,6 @@ public class InRangeTransition : BaseTransition
             inRange = -1f;
         }
 
-        // Normalize them to range [0, 1] to be able to determine the percentage easy
         return inRange;
     }
 }

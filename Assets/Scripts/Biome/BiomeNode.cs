@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NaughtyAttributes;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -21,8 +22,12 @@ public struct TransitionBiomeNode
 [NodeWidth(300)]
 public class BiomeNode : Node {
 
-    [SerializeField][Dropdown("DeterminatorHelper.GetTransitionTypes()")] private string _transitionType;
-    [SerializeField][Dropdown("DeterminatorHelper.GetTransitonVariables()")] private string _transitionVariable;
+    [SerializeField][Dropdown("transitionTypes")] private string _transitionType;
+    private List<string> transitionTypes { get { return DeterminatorHelper.GetTransitionTypes(); } }
+
+    [SerializeField][Dropdown("transitionVariables")] private string _transitionVariable;
+    private List<string> transitionVariables { get { return DeterminatorHelper.GetTransitonVariables(); } }
+
     [SerializeField] private TransitionCondition _transitionCondition;
     [SerializeField][Output(dynamicPortList = true)] private List<float> _transitionValues = new List<float>();
 

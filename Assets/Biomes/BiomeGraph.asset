@@ -51,7 +51,7 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: 
+  _transitionType: PLEASE SELECT VALUE
   _transitionVariable: 
   _transitionCondition: 0
   _transitionValues: []
@@ -452,7 +452,7 @@ MonoBehaviour:
   m_Name: Land
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1352, y: -120}
+  position: {x: -1400, y: -120}
   ports:
     keys:
     - _transitionValues
@@ -526,7 +526,7 @@ MonoBehaviour:
   _transitionCondition: 2
   _transitionValues:
   - 0.3
-  - 0.75
+  - 0.8
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
   _extraVisual: {fileID: 0}
   _outputValue: 0
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1400, y: 184}
+  position: {x: -1400, y: 152}
   ports:
     keys:
     - _outputValue
@@ -764,7 +764,7 @@ MonoBehaviour:
   m_Name: StartingBiome
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1704, y: -120}
+  position: {x: -1736, y: -120}
   ports:
     keys:
     - _transitionValues
