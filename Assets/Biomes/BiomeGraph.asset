@@ -53,6 +53,11 @@ MonoBehaviour:
       _dynamic: 0
   _transitionType: PLEASE SELECT VALUE
   _transitionVariable: 
+  _condition:
+    TransitionType: 
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: b1da140245082fd48b4c8cb6547299e2, type: 2}
@@ -112,6 +117,11 @@ MonoBehaviour:
       _dynamic: 0
   _transitionType: PLEASE SELECT VALUE
   _transitionVariable: PLEASE SELECT VALUE
+  _condition:
+    TransitionType: 
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
@@ -171,6 +181,11 @@ MonoBehaviour:
       _dynamic: 0
   _transitionType: PLEASE SELECT VALUE
   _transitionVariable: PLEASE SELECT VALUE
+  _condition:
+    TransitionType: 
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 4e810d7903f955a419596cc7934e21bf, type: 2}
@@ -230,6 +245,11 @@ MonoBehaviour:
       _dynamic: 0
   _transitionType: PLEASE SELECT VALUE
   _transitionVariable: PLEASE SELECT VALUE
+  _condition:
+    TransitionType: 
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 67caab28357466d45b550bbf516bb990, type: 2}
@@ -317,6 +337,11 @@ MonoBehaviour:
       _dynamic: 1
   _transitionType: FloatTransition
   _transitionVariable: RawVegetation
+  _condition:
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 2
   _transitionValues:
   - 0
@@ -431,6 +456,11 @@ MonoBehaviour:
       _dynamic: 1
   _transitionType: NeighbourCountTransition
   _transitionVariable: IsWater
+  _condition:
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 2
   _transitionValues:
   - 0
@@ -452,7 +482,7 @@ MonoBehaviour:
   m_Name: Land
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1400, y: -120}
+  position: {x: -1400, y: -232}
   ports:
     keys:
     - _transitionValues
@@ -523,6 +553,11 @@ MonoBehaviour:
       _dynamic: 1
   _transitionType: FloatTransition
   _transitionVariable: RawElevation
+  _condition:
+    TransitionType: InRangeTransition
+    TransitionVariable: PLEASE SELECT VALUE
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 2
   _transitionValues:
   - 0
@@ -584,6 +619,11 @@ MonoBehaviour:
       _dynamic: 0
   _transitionType: PLEASE SELECT VALUE
   _transitionVariable: PLEASE SELECT VALUE
+  _condition:
+    TransitionType: 
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: 5cdfd043358c04849939a3b565b6541b, type: 2}
@@ -643,6 +683,11 @@ MonoBehaviour:
       _dynamic: 0
   _transitionType: PLEASE SELECT VALUE
   _transitionVariable: PLEASE SELECT VALUE
+  _condition:
+    TransitionType: 
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
   _biomeMat: {fileID: 2100000, guid: ed81f0b75c1fa734abb947e9cddb6713, type: 2}
@@ -743,6 +788,11 @@ MonoBehaviour:
       _dynamic: 1
   _transitionType: InRangeTransition
   _transitionVariable: IsLand
+  _condition:
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 2
   _transitionValues:
   - 0
@@ -829,6 +879,11 @@ MonoBehaviour:
       _dynamic: 1
   _transitionType: BoolTransition
   _transitionVariable: IsWater
+  _condition:
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: 
+    Condition: 0
+    FloatComparator: 0
   _transitionCondition: 1
   _transitionValues:
   - 0

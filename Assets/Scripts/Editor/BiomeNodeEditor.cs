@@ -5,6 +5,7 @@ using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 using XNodeEditor;
 using static XNodeEditor.NodeEditor;
+using static System.TimeZoneInfo;
 
 [CustomNodeEditor(typeof(BiomeNode))]
 public class BiomeNodeEditor : NodeEditor
@@ -37,9 +38,12 @@ public class BiomeNodeEditor : NodeEditor
 
         if (_baseNode.GetTransitionValues().Count != 0)
         {
-            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionType"));
-            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionVariable"));
-            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionCondition"));
+            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionType"));
+            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionVariable"));
+            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionCondition"));
+
+            int selected = EditorGUILayout.Popup(_baseNode._condition.TransitionTypesList.IndexOf(_baseNode._condition.TransitionType), _baseNode._condition.TransitionTypesList.ToArray());
+            _baseNode._condition.TransitionType = _baseNode._condition.TransitionTypesList[selected];
         }
         NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionValues"));
 

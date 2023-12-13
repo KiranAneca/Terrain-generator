@@ -12,12 +12,25 @@ public enum TransitionCondition
     Threshold,
 }
 
+public enum floatComparator
+{
+    SmallerThan,
+    SmallerOrEqual,
+    BiggerThan,
+    BiggerOrEqual,
+    Equal,
+    NotEqual
+}
+
+
 [Serializable]
 public struct TransitionBiomeNode
 {
     public BiomeNode Biome;
     public float TransitionValue;
 }
+
+
 
 [NodeWidth(300)]
 public class BiomeNode : Node {
@@ -27,6 +40,8 @@ public class BiomeNode : Node {
 
     [SerializeField][Dropdown("transitionVariables")] private string _transitionVariable;
     private List<string> transitionVariables { get { return DeterminatorHelper.GetTransitonVariables(); } }
+
+    [SerializeField] public BiomeTransition _condition = new BiomeTransition();
 
     [SerializeField] private TransitionCondition _transitionCondition;
     [SerializeField][Output(dynamicPortList = true)] private List<float> _transitionValues = new List<float>();
