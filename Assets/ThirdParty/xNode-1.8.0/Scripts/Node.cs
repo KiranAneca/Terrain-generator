@@ -258,7 +258,7 @@ namespace XNode {
             Debug.LogWarning("No GetValue(NodePort port) override defined for " + GetType());
             return null;
         }
-#endregion
+        #endregion
 
         /// <summary> Called after a connection between two <see cref="NodePort"/>s is created </summary>
         /// <param name="from">Output</param> <param name="to">Input</param>
