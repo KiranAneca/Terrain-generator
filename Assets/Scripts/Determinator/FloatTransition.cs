@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[FloatTrans]
 public class FloatTransition : BaseTransition
 {
     public override float Determine(Tile tile, string transitionVariable, float maxRange = 0)

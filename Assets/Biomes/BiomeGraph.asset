@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: HighLand
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1032, y: 40}
+  position: {x: -1032, y: -24}
   ports:
     keys:
     - _transitionValues
@@ -51,12 +51,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: PLEASE SELECT VALUE
-  _transitionVariable: 
   _condition:
-    TransitionType: 
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: PLEASE SELECT VALUE
     FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
@@ -115,12 +112,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: PLEASE SELECT VALUE
-  _transitionVariable: PLEASE SELECT VALUE
   _condition:
-    TransitionType: 
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: PLEASE SELECT VALUE
     FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
@@ -141,7 +135,7 @@ MonoBehaviour:
   m_Name: Coast
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -600, y: -40}
+  position: {x: -616, y: -56}
   ports:
     keys:
     - _transitionValues
@@ -179,12 +173,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: PLEASE SELECT VALUE
-  _transitionVariable: PLEASE SELECT VALUE
   _condition:
-    TransitionType: 
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: PLEASE SELECT VALUE
     FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
@@ -205,7 +196,7 @@ MonoBehaviour:
   m_Name: ShallowWater
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1032, y: 392}
+  position: {x: -1016, y: 408}
   ports:
     keys:
     - _transitionValues
@@ -243,12 +234,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: PLEASE SELECT VALUE
-  _transitionVariable: PLEASE SELECT VALUE
   _condition:
-    TransitionType: 
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: PLEASE SELECT VALUE
     FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
@@ -269,7 +257,7 @@ MonoBehaviour:
   m_Name: LowLand
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -600, y: -296}
+  position: {x: -616, y: -296}
   ports:
     keys:
     - _transitionValues
@@ -335,12 +323,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-  _transitionType: FloatTransition
-  _transitionVariable: RawVegetation
   _condition:
-    TransitionType: PLEASE SELECT VALUE
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: FloatTransition
+    TransitionVariable: RawVegetation
     FloatComparator: 0
   _transitionCondition: 2
   _transitionValues:
@@ -388,7 +373,7 @@ MonoBehaviour:
   m_Name: LowLand
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1032, y: -216}
+  position: {x: -1032, y: -264}
   ports:
     keys:
     - _transitionValues
@@ -454,12 +439,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-  _transitionType: NeighbourCountTransition
-  _transitionVariable: IsWater
   _condition:
-    TransitionType: PLEASE SELECT VALUE
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: InRangeTransition
+    TransitionVariable: IsWater
     FloatComparator: 0
   _transitionCondition: 2
   _transitionValues:
@@ -551,12 +533,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-  _transitionType: FloatTransition
-  _transitionVariable: RawElevation
   _condition:
-    TransitionType: InRangeTransition
-    TransitionVariable: PLEASE SELECT VALUE
-    Condition: 0
+    TransitionType: FloatTransition
+    TransitionVariable: RawElevation
     FloatComparator: 0
   _transitionCondition: 2
   _transitionValues:
@@ -617,12 +596,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: PLEASE SELECT VALUE
-  _transitionVariable: PLEASE SELECT VALUE
   _condition:
-    TransitionType: 
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: PLEASE SELECT VALUE
     FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
@@ -643,7 +619,7 @@ MonoBehaviour:
   m_Name: Ocean
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1032, y: 216}
+  position: {x: -1016, y: 168}
   ports:
     keys:
     - _transitionValues
@@ -681,12 +657,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 0
-  _transitionType: PLEASE SELECT VALUE
-  _transitionVariable: PLEASE SELECT VALUE
   _condition:
-    TransitionType: 
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: PLEASE SELECT VALUE
+    TransitionVariable: PLEASE SELECT VALUE
     FloatComparator: 0
   _transitionCondition: 0
   _transitionValues: []
@@ -707,7 +680,7 @@ MonoBehaviour:
   m_Name: Water
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1400, y: 152}
+  position: {x: -1400, y: 88}
   ports:
     keys:
     - _outputValue
@@ -786,12 +759,9 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-  _transitionType: InRangeTransition
-  _transitionVariable: IsLand
   _condition:
-    TransitionType: PLEASE SELECT VALUE
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: InRangeTransition
+    TransitionVariable: IsLand
     FloatComparator: 0
   _transitionCondition: 2
   _transitionValues:
@@ -814,7 +784,7 @@ MonoBehaviour:
   m_Name: StartingBiome
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -1736, y: -120}
+  position: {x: -1784, y: -136}
   ports:
     keys:
     - _transitionValues
@@ -877,17 +847,14 @@ MonoBehaviour:
       _connectionType: 0
       _typeConstraint: 0
       _dynamic: 1
-  _transitionType: BoolTransition
-  _transitionVariable: IsWater
   _condition:
-    TransitionType: PLEASE SELECT VALUE
-    TransitionVariable: 
-    Condition: 0
+    TransitionType: BoolTransition
+    TransitionVariable: IsLand
     FloatComparator: 0
   _transitionCondition: 1
   _transitionValues:
-  - 0
   - 1
+  - 0
   _biomeMat: {fileID: 0}
   _extraVisual: {fileID: 0}
   _outputValue: 0

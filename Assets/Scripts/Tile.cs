@@ -22,7 +22,10 @@ public struct TileData
 }
 
 [AttributeUsage(AttributeTargets.Field)]
-public class BiomeVar : Attribute { }
+public class BoolVar : Attribute { }
+
+[AttributeUsage(AttributeTargets.Field)]
+public class FloatVar : Attribute { }
 
 [Serializable]
 public class Tile : MonoBehaviour
@@ -37,16 +40,16 @@ public class Tile : MonoBehaviour
     [SerializeField] private List<Tile> _neighbours;
 
     // Parameters for generation
-    [SerializeField][BiomeVar] public bool IsWater;
-    [SerializeField][BiomeVar] public bool IsLand;
+    [SerializeField][BoolVar] public bool IsWater;
+    [SerializeField][BoolVar] public bool IsLand;
 
-    [SerializeField][BiomeVar] public float RawElevation;
-    [SerializeField][BiomeVar] public float RawTemperature;
-    [SerializeField][BiomeVar] public float RawRain;
-    [SerializeField][BiomeVar] public float RawVegetation;
+    [SerializeField][FloatVar] public float RawElevation;
+    [SerializeField][FloatVar] public float RawTemperature;
+    [SerializeField][FloatVar] public float RawRain;
+    [SerializeField][FloatVar] public float RawVegetation;
 
-    [SerializeField][BiomeVar] public float RawCoal;
-    [SerializeField][BiomeVar] public float RawIron;
+    [SerializeField][FloatVar] public float RawCoal;
+    [SerializeField][FloatVar] public float RawIron;
 
     [SerializeField] private Vector2Int _partionedChunk;
 

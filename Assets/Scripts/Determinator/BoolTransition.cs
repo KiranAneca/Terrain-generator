@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[BoolTrans]
 public class BoolTransition : BaseTransition
 {
     public override float Determine(Tile tile, string transitionVariable, float maxRange = 0)

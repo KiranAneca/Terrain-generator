@@ -28,16 +28,21 @@ public class TransitionGenerator
         }
 
         // Get all the flagged variables from the tile script
-        List<string> properties = new List<string>();
+        List<string> boolVars = new List<string>();
+        List<string> floatVars = new List<string>();
         var propertyValues = typeof(Tile).GetFields();
-
 
         for (int i = 0; i < propertyValues.Length; i++)
         {
-            BiomeVar lookupVar = Attribute.GetCustomAttribute(propertyValues[i], typeof(BiomeVar)) as BiomeVar;
-            if (lookupVar != null)
+            BoolVar lookupBoolVar = Attribute.GetCustomAttribute(propertyValues[i], typeof(BoolVar)) as BoolVar;
+            if (lookupBoolVar != null)
             {
-                properties.Add(propertyValues[i].Name);
+                boolVars.Add(propertyValues[i].Name);
+            }
+            FloatVar lookupfloatVar = Attribute.GetCustomAttribute(propertyValues[i], typeof(FloatVar)) as FloatVar;
+            if (lookupfloatVar != null)
+            {
+                floatVars.Add(propertyValues[i].Name);
             }
         }
 
@@ -52,7 +57,7 @@ public class TransitionGenerator
 
         string transitionVariables = "private static List<string> _transitionVariableList = new List<string>() {";
         transitionVariables += "\"" + "PLEASE SELECT VALUE" + "\",";
-        foreach (var item in properties)
+        foreach (var item in boolVars)
         {
             transitionVariables += "\"" + item.ToString() + "\",";
         }
