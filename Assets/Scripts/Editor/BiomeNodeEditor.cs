@@ -51,19 +51,38 @@ public class BiomeNodeEditor : NodeEditor
             DrawTransitionCondition();
         }
 
-        if (_baseNode.GetTransitionValues().Count != 0)
-        {
-            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionType"));
-            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionVariable"));
-            //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionCondition"));
-        }
-
-        NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionValues"));
-
-
+        //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionValues"));
+        DrawCustomTransition();
 
         // Apply property modifications
         serializedObject.ApplyModifiedProperties();
+    }
+
+    private void DrawCustomTransition()
+    {
+        GUILayout.BeginVertical("HelpBox");
+        for (int i = 0; i < _baseNode.GetTransitionValues().Count; i++)
+        {
+            // Transition Type
+            GUILayout.BeginHorizontal();
+            EditorGUIUtility.labelWidth = 5;
+            EditorGUILayout.LabelField("Float");
+            EditorGUIUtility.labelWidth = 0;
+            if (_baseNode.GetTransitionValues()[i].Node != null)
+            {
+                float val = EditorGUILayout.FloatField(_baseNode.GetTransitionValues()[i].Node.Value);
+                _baseNode.SetTransitionValue(i, val);
+                _baseNode.GetTransitionValues()[i].Node.Value = val;
+            }
+            else
+            {
+                _baseNode.SetTransitionValue(i, EditorGUILayout.FloatField(_baseNode.GetTransitionValues()[i].Value));
+            }
+            _baseNode.SetTransitionNode(i, EditorGUILayout.ObjectField(_baseNode.GetTransitionValues()[i].Node, typeof(FloatNode)) as FloatNode);
+            GUILayout.EndHorizontal();
+
+        }
+        GUILayout.EndVertical();
     }
 
     private void DrawVisuals()

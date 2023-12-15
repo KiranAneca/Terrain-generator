@@ -16,14 +16,28 @@ public class BiomeNode : BaseNode
     [SerializeField] private Material _biomeMat;
     [SerializeField] private GameObject _extraVisual;
 
+ 
 
     // Use this for initialization
     protected override void Init() {
 		base.Init();
 	}
 
+    public void SetTransitionValue(int idx, float value)
+    {
+        var t = _transitionValues[idx];
+        t.Value = value;
+        _transitionValues[idx] = t;
+    }
 
-	public override BaseNode GetOutputNode(Tile tile)
+    public void SetTransitionNode(int idx, FloatNode node)
+    {
+        var t = _transitionValues[idx];
+        t.Node = node;
+        _transitionValues[idx] = t;
+    }
+
+    public override BaseNode GetOutputNode(Tile tile)
     {
         // Add all the options to the list
         var ports = GetAllOutputPorts();
@@ -43,9 +57,9 @@ public class BiomeNode : BaseNode
         float biggestRange = 0;
         for (int i = 0; i < connections.Count; i++)
         {
-            if (_transitionValues[i] >= biggestRange)
+            if (_transitionValues[i].Value >= biggestRange)
             {
-                biggestRange = _transitionValues[i];
+                biggestRange = _transitionValues[i].Value;
             }
         }
 
@@ -59,7 +73,7 @@ public class BiomeNode : BaseNode
                 for (int i = 0; i < connections.Count; i++)
                 {
                     // If the testvalue is bigger then the threshold
-                    float testvalue = transitionValue - _transitionValues[i];
+                    float testvalue = transitionValue - _transitionValues[i].Value;
                     if (testvalue >= 0)
                     {
                         newNode = connections[i];
@@ -73,7 +87,7 @@ public class BiomeNode : BaseNode
                 for (int i = 0; i < connections.Count; i++)
                 {
                     // If the testvalue is closer to the output
-                    float testvalue = Mathf.Abs(_transitionValues[i] - transitionValue);
+                    float testvalue = Mathf.Abs(_transitionValues[i].Value - transitionValue);
                     if (testvalue <= closestValue)
                     {
                         closestValue = testvalue;
@@ -90,7 +104,7 @@ public class BiomeNode : BaseNode
         return _transitionCondition; 
     }
 
-    public List<float> GetTransitionValues()
+    public List<OutputFloat> GetTransitionValues()
     {
         return _transitionValues;
     }

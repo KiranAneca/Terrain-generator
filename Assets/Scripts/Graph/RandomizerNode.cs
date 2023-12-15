@@ -32,7 +32,7 @@ public class RandomizerNode : BaseNode
         float totalRange = 0;
         for (int i = 0; i < connections.Count; i++)
         {
-            totalRange += _transitionValues[i];
+            totalRange += _transitionValues[i].Value;
         }
         float randomFloat = UnityEngine.Random.Range(0, totalRange);
 
@@ -40,7 +40,7 @@ public class RandomizerNode : BaseNode
         int idx = 0;
         for (int i = 0; i < connections.Count; i++)
         {
-            counter += _transitionValues[i];
+            counter += _transitionValues[i].Value;
             if (randomFloat < counter) break;
             idx++;
         }

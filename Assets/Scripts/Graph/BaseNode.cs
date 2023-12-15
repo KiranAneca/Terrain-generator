@@ -1,12 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
 
+[Serializable]
+public struct OutputFloat
+{
+    public float Value;
+    public FloatNode Node;
+}
+
 public class BaseNode : Node
 {
     [SerializeField][Input] protected float _inputValue;
-    [SerializeField][Output(dynamicPortList = true)] protected List<float> _transitionValues = new List<float>();
+    [SerializeField][Output(dynamicPortList = true)] protected List<OutputFloat> _transitionValues = new List<OutputFloat>();
     public virtual BaseNode GetOutputNode(Tile tile)
     {
         Debug.LogWarning("No GetOutputNode(Tile tile) override defined for " + GetType());

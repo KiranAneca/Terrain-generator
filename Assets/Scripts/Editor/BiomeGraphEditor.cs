@@ -13,6 +13,10 @@ public class BiomeGraphEditor : NodeGraphEditor
         {
             return "Maths/Randomizer";
         }
+        else if (type == typeof(FloatNode))
+        {
+            return "Maths/Float";
+        }
         else if (type.BaseType == typeof(BaseNode))
         {
             return base.GetNodeMenuName(type);
