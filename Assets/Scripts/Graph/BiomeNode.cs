@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using XNode;
 using static System.TimeZoneInfo;
@@ -35,6 +36,21 @@ public class BiomeNode : BaseNode
         var t = _transitionValues[idx];
         t.Node = node;
         _transitionValues[idx] = t;
+    }
+
+    public void AddTransitionNode()
+    {
+        AddDynamicOutput(typeof(OutputFloat), fieldName: "_transitionValues " + _transitionValues.Count);
+        _transitionValues.Add(new OutputFloat());
+    }
+
+    public void RemoveLastTransitionNode()
+    {
+        if(_transitionValues.Count > 0)
+        {
+            RemoveDynamicPort("_transitionValues " + (_transitionValues.Count - 1));
+            _transitionValues.RemoveAt(_transitionValues.Count - 1);
+        }
     }
 
     public override BaseNode GetOutputNode(Tile tile)

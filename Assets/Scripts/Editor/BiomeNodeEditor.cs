@@ -7,6 +7,12 @@ using XNodeEditor;
 using static XNodeEditor.NodeEditor;
 using static System.TimeZoneInfo;
 using System;
+using static XNode.Node;
+using UnityEditor.Experimental.GraphView;
+using XNode;
+using UnityEditorInternal;
+using Node = XNode.Node;
+using System.Linq;
 
 [CustomNodeEditor(typeof(BiomeNode))]
 public class BiomeNodeEditor : NodeEditor
@@ -53,6 +59,7 @@ public class BiomeNodeEditor : NodeEditor
 
         //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionValues"));
         DrawCustomTransition();
+        //Test();
 
         // Apply property modifications
         serializedObject.ApplyModifiedProperties();
@@ -79,9 +86,21 @@ public class BiomeNodeEditor : NodeEditor
                 _baseNode.SetTransitionValue(i, EditorGUILayout.FloatField(_baseNode.GetTransitionValues()[i].Value));
             }
             _baseNode.SetTransitionNode(i, EditorGUILayout.ObjectField(_baseNode.GetTransitionValues()[i].Node, typeof(FloatNode)) as FloatNode);
+            NodePort otherPort = _baseNode.GetPort("_transitionValues " + i.ToString());
+            NodeEditorGUILayout.AddPortField(otherPort);
             GUILayout.EndHorizontal();
-
         }
+        GUILayout.BeginHorizontal();
+        if (GUILayout.Button("+", GUILayout.Width(75)))
+        {
+            _baseNode.AddTransitionNode();
+        }
+        if (GUILayout.Button("-", GUILayout.Width(75)))
+        {
+            _baseNode.RemoveLastTransitionNode();
+        }
+        GUILayout.EndHorizontal();
+
         GUILayout.EndVertical();
     }
 
