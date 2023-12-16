@@ -138,7 +138,11 @@ public class BiomeNodeEditor : NodeEditor
                 if (selectedTransitionVariable < 0) { selectedTransitionVariable = 0; } // If the type changed, the index will retun -1 and needs to be acounted for
                 _baseNode._condition.TransitionVariable = _baseNode._condition.TransitionVariableList[selectedTransitionVariable];
             }
+
             GUILayout.EndHorizontal();
+
+            // Draw transition condition
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionCondition"));
         }
         GUILayout.EndVertical();
     }

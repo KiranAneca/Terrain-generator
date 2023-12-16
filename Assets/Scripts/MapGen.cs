@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -41,6 +42,11 @@ public class MapGen : MonoBehaviour
     [Header("Remapping")]
     public AnimationCurve TemperatureMapper;
     public AnimationCurve HeightMapper;
+
+    public BiomeGraph Graph;
+
+    [Header("Biome Variables")]
+    public List<FloatNode> FloatNodes = new List<FloatNode>();
     
 
     private List<Tile> _tileMap;
@@ -55,6 +61,19 @@ public class MapGen : MonoBehaviour
         _instance = this;
         _tileMap = new List<Tile>();
         GenerateMap();
+    }
+
+    public void GetAllFloatNodes()
+    {
+        List<FloatNode> list = new List<FloatNode>(); 
+        for (int i = 0; i < Graph.nodes.Count; i++)
+        {
+            if (Graph.nodes[i] is FloatNode)
+            {
+                list.Add(Graph.nodes[i] as FloatNode);
+            }
+        }
+        FloatNodes = list;
     }
 
     public void GenerateMap()

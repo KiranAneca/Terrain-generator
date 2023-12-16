@@ -433,20 +433,20 @@ MonoBehaviour:
     - serializedVersion: 3
       time: 0
       value: -20
-      inSlope: 189.06393
-      outSlope: 189.06393
+      inSlope: 110.265976
+      outSlope: 110.265976
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.038210582
+      outWeight: 0.047826085
     - serializedVersion: 3
       time: 1
       value: 32
-      inSlope: 124.3262
-      outSlope: 124.3262
+      inSlope: 131.63498
+      outSlope: 131.63498
       tangentMode: 0
       weightedMode: 0
-      inWeight: 0.053817272
+      inWeight: 0.03913045
       outWeight: 0
     m_PreInfinity: 2
     m_PostInfinity: 0
@@ -502,6 +502,10 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+  Graph: {fileID: 11400000, guid: 0958b049d300a5546b224fed98787c6d, type: 2}
+  FloatNodes:
+  - {fileID: -7930953730524119789, guid: 0958b049d300a5546b224fed98787c6d, type: 2}
+  - {fileID: -703000675967680777, guid: 0958b049d300a5546b224fed98787c6d, type: 2}
   _partitionedMapSize: {x: 5, y: 5}
 --- !u!4 &1352421713
 Transform:

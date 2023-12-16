@@ -11,6 +11,7 @@ public struct OutputFloat
     public FloatNode Node;
 }
 
+[Serializable]
 public class BaseNode : Node
 {
     [SerializeField][Input] protected float _inputValue;

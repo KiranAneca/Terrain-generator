@@ -2,6 +2,8 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Reflection;
+using UnityEditor.VersionControl;
+using UnityEditor;
 using UnityEngine;
 
 public class Utility 
@@ -63,5 +65,24 @@ public class Utility
         // The type just couldn't be found...
         return null;
 
+    }
+
+    public static List<T> FindAssetsByType<T>() where T : UnityEngine.Object
+    {
+        List<T> assets = new List<T>();
+
+        string[] guids = AssetDatabase.FindAssets(string.Format("t:{0}", typeof(T)));
+
+        for (int i = 0; i < guids.Length; i++)
+        {
+            string assetPath = AssetDatabase.GUIDToAssetPath(guids[i]);
+            T asset = AssetDatabase.LoadAssetAtPath<T>(assetPath);
+
+            if (asset != null)
+            {
+                assets.Add(asset);
+            }
+        }
+        return assets;
     }
 }
