@@ -43,7 +43,7 @@ public class MapGen : MonoBehaviour
     public AnimationCurve TemperatureMapper;
     public AnimationCurve HeightMapper;
 
-    public BiomeGraph Graph;
+    [SerializeField] private BiomeGraph _graph;
 
     [Header("Biome Variables")]
     public List<FloatNode> FloatNodes = new List<FloatNode>();
@@ -66,11 +66,11 @@ public class MapGen : MonoBehaviour
     public void GetAllFloatNodes()
     {
         List<FloatNode> list = new List<FloatNode>(); 
-        for (int i = 0; i < Graph.nodes.Count; i++)
+        for (int i = 0; i < _graph.nodes.Count; i++)
         {
-            if (Graph.nodes[i] is FloatNode)
+            if (_graph.nodes[i] is FloatNode)
             {
-                list.Add(Graph.nodes[i] as FloatNode);
+                list.Add(_graph.nodes[i] as FloatNode);
             }
         }
         FloatNodes = list;
@@ -78,8 +78,6 @@ public class MapGen : MonoBehaviour
 
     public void GenerateMap()
     {
-        _partitionedMap = new List<Tile>[_mapSizeX / PartitionedMapSize.x, _mapSizeY / PartitionedMapSize.y];
-
         TileManager tilesManager = TileManager.Instance;
 
         // Delete the old map
@@ -94,15 +92,34 @@ public class MapGen : MonoBehaviour
 
         int idx = 0;
         int elevationOffset = Random.Range(1, 1000);
+
         // Generate the initial map
+
+        MapGeneratorNode node = _graph.nodes.Find(t => t is MapGeneratorNode) as MapGeneratorNode;
+        if(node != null)
+        {
+            node.GetInputs();
+
+            _mapSizeX = node.HeightMap.NoiseMapSize.x;
+            _mapSizeY = node.HeightMap.NoiseMapSize.y;
+        }
+
+        _partitionedMap = new List<Tile>[_mapSizeX / PartitionedMapSize.x, _mapSizeY / PartitionedMapSize.y];
         for (int x = 0; x < _mapSizeX; ++x)
         {
             for (int y = 0; y < _mapSizeY; ++y)
             {
+                float elevation;
+                if (node != null)
+                {
+                    elevation = node.HeightMap.NoiseMapValues[idx];
+                }
+                else
+                {
+                    elevation = Mathf.PerlinNoise(x * _elevationScatter + elevationOffset, y * _elevationScatter + elevationOffset);
+                }
                 idx++;
-
                 _partitionedMap[x / PartitionedMapSize.x, y / PartitionedMapSize.y] = new List<Tile>();
-                float elevation = Mathf.PerlinNoise(x * _elevationScatter + elevationOffset, y * _elevationScatter + elevationOffset);
 
                 // Randomly assign a a tile to be plains or water
                 GameObject obj = Instantiate(_tile, new Vector3(x, 0, y + (x % 2 / 2f)), _tile.transform.rotation);
