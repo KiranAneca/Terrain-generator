@@ -1,18 +1,7 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
-using static UnityEngine.GraphicsBuffer;
 using XNodeEditor;
-using static XNodeEditor.NodeEditor;
-using static System.TimeZoneInfo;
-using System;
-using static XNode.Node;
-using UnityEditor.Experimental.GraphView;
 using XNode;
-using UnityEditorInternal;
-using Node = XNode.Node;
-using System.Linq;
 
 [CustomNodeEditor(typeof(BiomeNode))]
 public class BiomeNodeEditor : NodeEditor
@@ -29,7 +18,7 @@ public class BiomeNodeEditor : NodeEditor
 
         if (_baseNode.GetTransitionValues().Count != 0)
         {
-            return base.GetTint() / 1.2f;
+            return new Color(0.35f, 0.35f, 0.32f);
         }
         return base.GetTint();
     }
@@ -57,9 +46,7 @@ public class BiomeNodeEditor : NodeEditor
             DrawTransitionCondition();
         }
 
-        //NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_transitionValues"));
         DrawCustomTransition();
-        //Test();
 
         // Apply property modifications
         serializedObject.ApplyModifiedProperties();
@@ -68,24 +55,25 @@ public class BiomeNodeEditor : NodeEditor
     private void DrawCustomTransition()
     {
         GUILayout.BeginVertical("HelpBox");
-        for (int i = 0; i < _baseNode.GetTransitionValues().Count; i++)
+        var transValues = _baseNode.GetTransitionValues();
+        for (int i = 0; i < transValues.Count; i++)
         {
             // Transition Type
             GUILayout.BeginHorizontal();
             EditorGUIUtility.labelWidth = 5;
             EditorGUILayout.LabelField("Float");
             EditorGUIUtility.labelWidth = 0;
-            if (_baseNode.GetTransitionValues()[i].Node != null)
+            if (transValues[i].Node != null)
             {
-                float val = EditorGUILayout.FloatField(_baseNode.GetTransitionValues()[i].Node.Value);
+                float val = EditorGUILayout.FloatField(transValues[i].Node.Value);
                 _baseNode.SetTransitionValue(i, val);
-                _baseNode.GetTransitionValues()[i].Node.Value = val;
+                transValues[i].Node.Value = val;
             }
             else
             {
-                _baseNode.SetTransitionValue(i, EditorGUILayout.FloatField(_baseNode.GetTransitionValues()[i].Value));
+                _baseNode.SetTransitionValue(i, EditorGUILayout.FloatField(transValues[i].Value));
             }
-            _baseNode.SetTransitionNode(i, EditorGUILayout.ObjectField(_baseNode.GetTransitionValues()[i].Node, typeof(FloatNode)) as FloatNode);
+            _baseNode.SetTransitionNode(i, EditorGUILayout.ObjectField(transValues[i].Node, typeof(FloatNode)) as FloatNode);
             NodePort otherPort = _baseNode.GetPort("_transitionValues " + i.ToString());
             NodeEditorGUILayout.AddPortField(otherPort);
             GUILayout.EndHorizontal();

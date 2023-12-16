@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using XNode;
+using XNodeEditor;
 
 public class RandomizerNode : BaseNode 
 {
@@ -47,5 +48,16 @@ public class RandomizerNode : BaseNode
 
         NodePort newNode = connections[idx];
         return newNode.node as BaseNode;
+    }
+}
+
+[CustomNodeEditor(typeof(RandomizerNode))]
+public class RandomizerNodeEditor : NodeEditor
+{
+    private FloatNode _baseNode;
+
+    public override Color GetTint()
+    {
+        return new Color(0.35f, 0.6f, 0.32f);
     }
 }

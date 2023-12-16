@@ -1,5 +1,85 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-5317365014333639825
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cd1f9f7efb981b743a9ba17244e99cd0, type: 3}
+  m_Name: Water
+  m_EditorClassIdentifier: 
+  graph: {fileID: 11400000}
+  position: {x: -1496, y: 24}
+  ports:
+    keys:
+    - _inputValue
+    - _transitionValues
+    - _transitionValues 0
+    - _transitionValues 1
+    values:
+    - _fieldName: _inputValue
+      _node: {fileID: -5317365014333639825}
+      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
+        PublicKeyToken=b77a5c561934e089
+      connections:
+      - fieldName: _transitionValues 1
+        node: {fileID: 5573242873178391559}
+        reroutePoints: []
+      _direction: 0
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _transitionValues
+      _node: {fileID: -5317365014333639825}
+      _typeQualifiedName: System.Collections.Generic.List`1[[OutputFloat, Assembly-CSharp,
+        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
+        Culture=neutral, PublicKeyToken=b77a5c561934e089
+      connections: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 0
+    - _fieldName: _transitionValues 0
+      _node: {fileID: -5317365014333639825}
+      _typeQualifiedName: OutputFloat, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: _inputValue
+        node: {fileID: 4992642241162467259}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+    - _fieldName: _transitionValues 1
+      _node: {fileID: -5317365014333639825}
+      _typeQualifiedName: OutputFloat, Assembly-CSharp, Version=0.0.0.0, Culture=neutral,
+        PublicKeyToken=null
+      connections:
+      - fieldName: _inputValue
+        node: {fileID: -2764976510677766676}
+        reroutePoints: []
+      _direction: 1
+      _connectionType: 0
+      _typeConstraint: 0
+      _dynamic: 1
+  _inputValue: 0
+  _transitionValues:
+  - Value: 0
+    Node: {fileID: 0}
+  - Value: 2
+    Node: {fileID: 0}
+  _condition:
+    TransitionType: InRangeTransition
+    TransitionVariable: IsLand
+    FloatComparator: 0
+  _transitionCondition: 0
+  _biomeMat: {fileID: 2100000, guid: ed81f0b75c1fa734abb947e9cddb6713, type: 2}
+  _extraVisual: {fileID: 0}
 --- !u!114 &-4396216788558271904
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -113,7 +193,7 @@ MonoBehaviour:
   m_Name: Coast
   m_EditorClassIdentifier: 
   graph: {fileID: 11400000}
-  position: {x: -696, y: -40}
+  position: {x: -696, y: -88}
   ports:
     keys:
     - _transitionValues
@@ -185,7 +265,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: _transitionValues 1
-        node: {fileID: 5777602535056472022}
+        node: {fileID: -5317365014333639825}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -296,7 +376,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nodes:
   - {fileID: 5573242873178391559}
-  - {fileID: 5777602535056472022}
   - {fileID: 3460060628401596803}
   - {fileID: 1380240456831389638}
   - {fileID: -4396216788558271904}
@@ -306,6 +385,7 @@ MonoBehaviour:
   - {fileID: 4992642241162467259}
   - {fileID: -3999094705662493612}
   - {fileID: 3593279916311651534}
+  - {fileID: -5317365014333639825}
   _startingBiome: {fileID: 5573242873178391559}
 --- !u!114 &1380240456831389638
 MonoBehaviour:
@@ -559,7 +639,7 @@ MonoBehaviour:
         PublicKeyToken=b77a5c561934e089
       connections:
       - fieldName: _transitionValues 0
-        node: {fileID: 5777602535056472022}
+        node: {fileID: -5317365014333639825}
         reroutePoints: []
       _direction: 0
       _connectionType: 0
@@ -632,7 +712,7 @@ MonoBehaviour:
         PublicKeyToken=null
       connections:
       - fieldName: _inputValue
-        node: {fileID: 5777602535056472022}
+        node: {fileID: -5317365014333639825}
         reroutePoints: []
       _direction: 1
       _connectionType: 0
@@ -650,89 +730,4 @@ MonoBehaviour:
     FloatComparator: 0
   _transitionCondition: 0
   _biomeMat: {fileID: 0}
-  _extraVisual: {fileID: 0}
---- !u!114 &5777602535056472022
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cd1f9f7efb981b743a9ba17244e99cd0, type: 3}
-  m_Name: Water
-  m_EditorClassIdentifier: 
-  graph: {fileID: 11400000}
-  position: {x: -1464, y: 24}
-  ports:
-    keys:
-    - _transitionValues
-    - _inputValue
-    - _transitionValues 0
-    - _transitionValues 1
-    values:
-    - _fieldName: _transitionValues
-      _node: {fileID: 5777602535056472022}
-      _typeQualifiedName: System.Collections.Generic.List`1[[OutputFloat, Assembly-CSharp,
-        Version=0.0.0.0, Culture=neutral, PublicKeyToken=null]], mscorlib, Version=4.0.0.0,
-        Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: _inputValue
-      _node: {fileID: 5777602535056472022}
-      _typeQualifiedName: System.Single, mscorlib, Version=4.0.0.0, Culture=neutral,
-        PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: _transitionValues 1
-        node: {fileID: 0}
-        reroutePoints: []
-      - fieldName: _transitionValues 1
-        node: {fileID: 5573242873178391559}
-        reroutePoints: []
-      _direction: 0
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 0
-    - _fieldName: _transitionValues 0
-      _node: {fileID: 5777602535056472022}
-      _typeQualifiedName: System.Collections.Generic.List`1[[System.Single, mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: _inputValue
-        node: {fileID: 4992642241162467259}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-    - _fieldName: _transitionValues 1
-      _node: {fileID: 5777602535056472022}
-      _typeQualifiedName: System.Collections.Generic.List`1[[System.Single, mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089]], mscorlib,
-        Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089
-      connections:
-      - fieldName: _inputValue
-        node: {fileID: -2764976510677766676}
-        reroutePoints: []
-      _direction: 1
-      _connectionType: 0
-      _typeConstraint: 0
-      _dynamic: 1
-  _inputValue: 0
-  _transitionValues:
-  - Value: 0
-    Node: {fileID: 0}
-  - Value: 2
-    Node: {fileID: 0}
-  _condition:
-    TransitionType: InRangeTransition
-    TransitionVariable: IsLand
-    FloatComparator: 0
-  _transitionCondition: 2
-  _biomeMat: {fileID: 2100000, guid: ed81f0b75c1fa734abb947e9cddb6713, type: 2}
   _extraVisual: {fileID: 0}

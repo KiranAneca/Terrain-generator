@@ -38,5 +38,10 @@ public class FloatNodeEditor : NodeEditor
         // Update serialized object's representation
         serializedObject.Update();
         NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("Value"));
-    } 
+    }
+
+    public override Color GetTint()
+    {
+        return new Color(0.35f, 0.6f, 0.32f);
+    }
 }
