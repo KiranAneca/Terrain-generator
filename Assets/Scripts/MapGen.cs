@@ -44,6 +44,7 @@ public class MapGen : MonoBehaviour
     public AnimationCurve HeightMapper;
 
     [SerializeField] private BiomeGraph _graph;
+    private MapGeneratorNode _node;
 
     [Header("Biome Variables")]
     public List<FloatNode> FloatNodes = new List<FloatNode>();
@@ -93,26 +94,36 @@ public class MapGen : MonoBehaviour
         int idx = 0;
         int elevationOffset = Random.Range(1, 1000);
 
-        // Generate the initial map
-
-        MapGeneratorNode node = _graph.nodes.Find(t => t is MapGeneratorNode) as MapGeneratorNode;
-        if(node != null)
+        // Regenerate all the noisemaps
+        for (int i = 0; i < _graph.nodes.Count; i++)
         {
-            node.GetInputs();
-
-            _mapSizeX = node.HeightMap.NoiseMapSize.x;
-            _mapSizeY = node.HeightMap.NoiseMapSize.y;
+            if (_graph.nodes[i] is NoisemapNode)
+            {
+                NoisemapNode noisemap = _graph.nodes[i] as NoisemapNode;
+                noisemap.GenerateNewMap();
+            }
         }
 
+        // Check if there is a mapgenNode and if so, use it 
+        _node = _graph.nodes.Find(t => t is MapGeneratorNode) as MapGeneratorNode;
+        if(_node != null)
+        {
+            _node.GetInputs();
+
+            _mapSizeX = _node.HeightMap.NoiseMapSize.x;
+            _mapSizeY = _node.HeightMap.NoiseMapSize.y;
+        }
+
+        // Generate the initial map
         _partitionedMap = new List<Tile>[_mapSizeX / PartitionedMapSize.x, _mapSizeY / PartitionedMapSize.y];
         for (int x = 0; x < _mapSizeX; ++x)
         {
             for (int y = 0; y < _mapSizeY; ++y)
             {
                 float elevation;
-                if (node != null)
+                if (_node != null)
                 {
-                    elevation = node.HeightMap.NoiseMapValues[idx];
+                    elevation = _node.HeightMap.NoiseMapValues[idx];
                 }
                 else
                 {
@@ -198,6 +209,13 @@ public class MapGen : MonoBehaviour
         int IronOffset = Random.Range(1, 1000);
 
         int idx = -1;
+
+        float temperatureVal;
+        float rainVal;
+        float vegetationVal;
+        float coalVal;
+        float ironVal;
+
         for (int x = 0; x < _mapSizeX; ++x)
         {
             for (int y = 0; y < _mapSizeY; ++y)
@@ -205,29 +223,40 @@ public class MapGen : MonoBehaviour
                 idx++;
 
                 // Generate the value for every tile and set them
-                float temperatureVal = Mathf.PerlinNoise(x * _temperatureScatter + temperatureOffset, y * _temperatureScatter + temperatureOffset);
-                float rainVal = Mathf.PerlinNoise(x * _rainScatter + rainOffset, y * _rainScatter + rainOffset);
-                float vegetationVal = Mathf.PerlinNoise(x * _vegetationScatter + vegetationOffset, y * _vegetationScatter + vegetationOffset);
-
-                float coalVal = Mathf.PerlinNoise(x * _coalScatter + coalOffset, y * _coalScatter + coalOffset);
-                if(coalVal < _coalSpawnThreshold) 
-                { 
-                    coalVal = 0;
+                if(_node != null)
+                {
+                    temperatureVal = _node.TemperatureMap.NoiseMapValues[idx];
+                    rainVal = _node.RainMap.NoiseMapValues[idx];
+                    vegetationVal = _node.VegetationMap.NoiseMapValues[idx];
+                    coalVal = _node.CoalMap.NoiseMapValues[idx];
+                    ironVal = _node.IronMap.NoiseMapValues[idx];
                 }
                 else
                 {
-                    coalVal = Utility.NormalizeValueToNormalRange(_coalSpawnThreshold, 1, coalVal);
+                    temperatureVal = Mathf.PerlinNoise(x * _temperatureScatter + temperatureOffset, y * _temperatureScatter + temperatureOffset);
+                    rainVal = Mathf.PerlinNoise(x * _rainScatter + rainOffset, y * _rainScatter + rainOffset);
+                    vegetationVal = Mathf.PerlinNoise(x * _vegetationScatter + vegetationOffset, y * _vegetationScatter + vegetationOffset);
+                    coalVal = Mathf.PerlinNoise(x * _coalScatter + coalOffset, y * _coalScatter + coalOffset);
+                    if (coalVal < _coalSpawnThreshold)
+                    {
+                        coalVal = 0;
+                    }
+                    else
+                    {
+                        coalVal = Utility.NormalizeValueToNormalRange(_coalSpawnThreshold, 1, coalVal);
+                    }
+
+                    ironVal = Mathf.PerlinNoise(x * _ironScatter + IronOffset, y * _ironScatter + IronOffset);
+                    if (ironVal < _ironSpawnThreshold)
+                    {
+                        ironVal = 0;
+                    }
+                    else
+                    {
+                        ironVal = Utility.NormalizeValueToNormalRange(_ironSpawnThreshold, 1, ironVal);
+                    }
                 }
 
-                float ironVal = Mathf.PerlinNoise(x * _ironScatter + IronOffset, y * _ironScatter + IronOffset);
-                if (ironVal < _ironSpawnThreshold) 
-                { 
-                    ironVal = 0;
-                }
-                else
-                {
-                    ironVal = Utility.NormalizeValueToNormalRange(_ironSpawnThreshold, 1, ironVal);
-                }
                 _tileMap[idx].RawTemperature = temperatureVal;
                 _tileMap[idx].RawVegetation = vegetationVal;
                 _tileMap[idx].RawRain = rainVal;
@@ -323,113 +352,4 @@ public class MapGen : MonoBehaviour
         }
     }
 
-    //public void GenerateMap()
-    //{
-    //    // Delete the old map
-    //    foreach (Tile tile in _tiles)
-    //    {
-    //        GameObject.Destroy(tile.gameObject);
-    //    }
-    //    _tiles.Clear();
-    //    TileManager tilesManager = TileManager.Instance;
-
-    //    int mapOffset = Random.Range(1, 1000);
-    //    int temperatureOffset = Random.Range(1, 1000);
-    //    int rainOffset = Random.Range(1, 1000);
-
-    //    for (int x = 0; x < _MapSizeX; ++x)
-    //    {
-    //        for (int y = 0; y < _MapSizeY; ++y)
-    //        {
-    //            Vector3 vec = new Vector3(x, 0, y + (x % 2 / 2f));
-
-    //            float yVal = Mathf.PerlinNoise(x * _Scatter + mapOffset, y * _Scatter + mapOffset);
-    //            float temperatureVal = Mathf.PerlinNoise(x * _BiomeScatter + temperatureOffset, y * _BiomeScatter + temperatureOffset);
-    //            float rainVal = Mathf.PerlinNoise(x * _BiomeScatter + rainOffset, y * _BiomeScatter + rainOffset);
-
-    //            if (yVal >= _MountainLevel) // Spawn mountain
-    //            {
-    //                SpawnTile(TileType.Mountain, vec, yVal, temperatureVal, rainVal);
-    //            }
-    //            else if (yVal >= _BeachLevel) // Spawn plains
-    //            {
-    //                SpawnTile(TileType.Plains, vec, yVal, temperatureVal, rainVal);
-    //            }
-    //            else if (yVal >= _SeaLevel) // Spawn beach
-    //            {
-    //                SpawnTile(TileType.Beach, vec, yVal, temperatureVal, rainVal);
-    //            }
-    //            else if (yVal >= _SeaLevel - 0.1f) // Spawn water
-    //            {
-    //                SpawnTile(TileType.Water, vec, yVal, temperatureVal, rainVal);
-    //            }
-    //            else // Spawn ocean
-    //            {
-    //                SpawnTile(TileType.Ocean, vec, yVal, temperatureVal, rainVal);
-    //            }
-    //        }
-    //    }
-    //    AddMapDetails();
-    //    TileManager.Instance.SetTiles(_tiles);
-
-    //    Camera.main.transform.eulerAngles = new Vector3(50, 0, 0);
-    //}
-
-
-
-    //private void AddMapDetails()
-    //{
-    //    // Adding forest
-    //    int offset = Random.Range(1, 1000);
-    //    int i = 0;
-    //    foreach (Tile tile in _tiles)
-    //    {
-    //        if (!tile.gameObject.CompareTag("Camp"))
-    //        {
-    //            if (tile._TileType == TileType.Plains)
-    //            {
-    //                float val = Mathf.PerlinNoise(i % _MapSizeY * _ForestScatter + offset, i / _MapSizeX * _ForestScatter + offset);
-    //                if (val <= _ForestDensity)
-    //                {
-    //                    GameObject temp = Instantiate(TileManager.Instance.GetTileObject(TileType.Forest), tile.transform.position, TileManager.Instance.GetTileObject(TileType.Forest).transform.rotation);
-    //                    temp.transform.SetParent(tile.transform);
-    //                    tile._TileType = TileType.Forest;
-    //                }
-    //            }
-    //        }
-    //        ++i;
-    //    }
-    //}
-
-    //private void SpawnTile(TileType type, Vector3 vec, float yVal, float temperatureVal, float rainVal)
-    //{
-    //    TileManager tilesManager = TileManager.Instance;
-
-    //    TileType curType = type;
-
-    //    temperatureVal += 0.5f;
-    //    temperatureVal -= yVal;
-
-    //    // Change plains, later all tiles should be changed based on biome
-    //    if(type == TileType.Plains || type == TileType.Beach)
-    //    {
-    //        if(temperatureVal <= _SnowDensity) // Change tile into snowtile
-    //        {
-    //            curType = TileType.Snow;
-    //        }
-    //    }
-
-    //    GameObject temp = Instantiate(tilesManager.GetTileObject(curType), vec, tilesManager.GetTileObject(curType).transform.rotation);
-    //    temp.transform.SetParent(this.transform);
-    //    //temp.transform.position += new Vector3(0.0f, yVal * 3, 0.0f);
-
-    //    // Setting the parameters
-    //    Tile tile = temp.GetComponent<Tile>();
-    //    tile._TileType = type;
-    //    tile._GridPosition = new Vector3(temp.transform.position.x, temp.transform.position.z * 2, yVal);
-    //    tile._Temperature = temperatureVal;
-    //    tile._Rain = rainVal;
-
-    //    _tiles.Add(tile);
-    //}
 }

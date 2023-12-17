@@ -15,19 +15,33 @@ public class Noisemap
 
 public class NoisemapNode : BaseNode {
 
-	[Output] public Noisemap Noisemap = new Noisemap();
-    [SerializeField] private float _scatter;
+    public MapGeneratorNode MapgenNode; // Reference to the mapgenNode
+    [Output] public Noisemap Noisemap = new Noisemap();
+    [SerializeField][Range(0.01f, 0.3f)] private float _scatter;
     protected override void Init() {
 		base.Init();
 
+        Initialize();
         GenerateNewMap();
+    }
+
+    public void Initialize()
+    {
+        BiomeGraph graph = this.graph as BiomeGraph;
+        MapGeneratorNode node = graph.nodes.Find(t => t is MapGeneratorNode) as MapGeneratorNode;
+        if (node != null)
+        {
+            MapgenNode = node;
+        }
     }
 
     public void GenerateNewMap()
     {
+        if(MapgenNode != null) { Noisemap.NoiseMapSize = MapgenNode.MapSize; }
+
         int offset = UnityEngine.Random.Range(1, 1000);
         // Delete the old map
-        Noisemap.NoiseMapValues.Clear();
+        Noisemap.NoiseMapValues = new List<float>();
         for (int x = 0; x < Noisemap.NoiseMapSize.x; ++x)
         {
             for (int y = 0; y < Noisemap.NoiseMapSize.y; ++y)
@@ -55,13 +69,12 @@ public class NoisemapNodeEditor : NodeEditor
 
         // Update serialized object's representation
         serializedObject.Update();
-        NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("Noisemap").FindPropertyRelative("NoiseMapSize"));
+        if(_baseNode.MapgenNode == null)
+        {
+            NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("Noisemap").FindPropertyRelative("NoiseMapSize"));
+        }
         NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("_scatter"));
         NodeEditorGUILayout.PropertyField(serializedObject.FindProperty("Noisemap"));
-        if (GUILayout.Button("Generate new map"))
-        {
-            _baseNode.GenerateNewMap();
-        }
     }
 
     public override Color GetTint()
